@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wshly - Holiday Card Creator</title>
+</head>
+<body>
+    <h1>Create Your Holiday Card</h1>
+    
+    <form action="/card" method="get">
+        <div>
+            <label>From:</label>
+            <input type="text" name="senderName" placeholder="Your name" required>
+        </div>
+        
+        <div>
+            <label>To:</label>
+            <input type="text" name="recipientName" placeholder="Recipient name" required>
+        </div>
+        
+        <div>
+            <label>Message:</label>
+            <select name="mainMessage">
+                <option th:each="message : ${messages}" 
+                        th:value="${message}" 
+                        th:text="${message.displayText}">
+                </option>
+            </select>
+        </div>
+        
+        <div>
+            <label>Custom Message:</label>
+            <textarea name="customMessage" placeholder="Add your personal touch..." maxlength="150"></textarea>
+        </div>
+        
+        <button type="submit">Create Card</button>
+    </form>
+</body>
+</html>

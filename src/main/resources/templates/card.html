@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Holiday Card</title>
+</head>
+<body>
+    <h1>Your Holiday Card</h1>
+    
+    <div class="card-display">
+        <div class="card-content">
+            <h2 th:text="${card.mainMessage.displayText}">Message</h2>
+            <p>To: <span th:text="${card.recipientName}">Recipient</span></p>
+            <p th:if="${card.customMessage != null and !card.customMessage.isEmpty()}" 
+               th:text="${card.customMessage}">Custom message</p>
+            <p>From: <span th:text="${card.senderName}">Sender</span></p>
+        </div>
+    </div>
+    
+    <div class="actions">
+        <button onclick="copyLink()">Copy Link</button>
+        <a href="/">Create Another Card</a>
+    </div>
+    
+    <script>
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Link copied!');
+        }
+    </script>
+</body>
+</html>
