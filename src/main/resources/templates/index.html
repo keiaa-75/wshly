@@ -89,7 +89,18 @@
         </div>
         
         <!-- Settings Form (bottom on mobile, left on desktop) -->
-        <div class="w-full md:w-80 p-4 bg-white border-t-2 md:border-t-0 md:border-r-2 border-pink-200 md:order-1">
+        <div id="form-pane" class="w-full md:w-80 p-4 bg-white border-t-2 md:border-t-0 md:border-r-2 border-pink-200 md:order-1 transition-transform duration-300 ease-in-out transform translate-y-0 md:translate-y-0 md:translate-x-0 relative">
+            <!-- Tab Handle -->
+            <button id="form-toggle" class="absolute -top-8 left-1/2 transform -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:left-full md:translate-x-0 bg-white border-2 border-pink-200 border-b-0 md:border-b-2 md:border-l-0 rounded-t-lg md:rounded-l-none md:rounded-r-lg px-3 py-2 md:px-2 md:py-3 hover:bg-pink-50 transition-colors">
+                <div class="flex items-center justify-center">
+                    <svg id="toggle-icon" class="w-4 h-4 text-cherry-600 transition-transform duration-300 md:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <!-- Dotted detail -->
+                <div class="absolute inset-1 border border-dotted border-pink-300 rounded pointer-events-none"></div>
+            </button>
+            
             <h1 class="font-superhelio text-2xl text-red-600 mb-6 text-center md:text-left font-bold">CREATE CARD</h1>
             
             <form action="/card" method="get" class="space-y-4">
@@ -135,6 +146,29 @@
     
     <script th:if="${card == null or showForm}" src="/js/card-creator.js"></script>
     
+    <script th:if="${card == null or showForm}">
+        // Form pane toggle functionality
+        $(document).ready(function() {
+            const $formPane = $('#form-pane');
+            const $toggleIcon = $('#toggle-icon');
+            let isCollapsed = false;
+            
+            $('#form-toggle').click(function() {
+                isCollapsed = !isCollapsed;
+                
+                if (isCollapsed) {
+                    // Collapse
+                    $formPane.addClass('translate-y-full md:translate-y-0 md:-translate-x-full');
+                    $toggleIcon.addClass('rotate-180').removeClass('md:rotate-90').addClass('md:-rotate-90');
+                } else {
+                    // Expand
+                    $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
+                    $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
+                }
+            });
+        });
+    </script>
+    
     <script th:if="${card != null}">
         function copyCardLink() {
             navigator.clipboard.writeText(window.location.href).then(() => {
@@ -153,6 +187,25 @@
     <style>
         .pixel-shadow {
             text-shadow: 2px 2px 0px rgba(220, 38, 38, 0.3);
+        }
+        
+        /* Ensure form pane stays above other content when collapsed */
+        #form-pane {
+            z-index: 10;
+        }
+        
+        /* Hide form content when collapsed on mobile */
+        #form-pane.translate-y-full > *:not(#form-toggle) {
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+        
+        /* Hide form content when collapsed on desktop */
+        @media (min-width: 768px) {
+            #form-pane.-translate-x-full > *:not(#form-toggle) {
+                opacity: 0;
+                transition: opacity 0.2s ease-in-out;
+            }
         }
     </style>
 </body>
