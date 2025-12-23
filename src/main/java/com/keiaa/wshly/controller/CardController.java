@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CardController {
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(@RequestParam(defaultValue = "1") String f, Model model) {
         model.addAttribute("messages", MainMessage.values());
+        model.addAttribute("showForm", f.equals("1"));
         return "index";
     }
 
@@ -23,11 +24,14 @@ public class CardController {
             @RequestParam(defaultValue = "") String recipientName,
             @RequestParam(defaultValue = "MERRY_CHRISTMAS") MainMessage mainMessage,
             @RequestParam(defaultValue = "") String customMessage,
+            @RequestParam(defaultValue = "0") String f,
             Model model) {
         
         Card card = new Card(senderName, recipientName, mainMessage, customMessage);
         model.addAttribute("card", card);
-        return "card";
+        model.addAttribute("messages", MainMessage.values());
+        model.addAttribute("showForm", f.equals("1"));
+        return "index";
     }
 
     @GetMapping("/api/card/preview")
