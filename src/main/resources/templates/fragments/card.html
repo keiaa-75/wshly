@@ -1,0 +1,45 @@
+<!-- Holiday Card Display Fragment -->
+<div th:fragment="card-display" class="bg-white rounded-lg shadow-xl border-4 border-cherry-400 p-6 max-w-sm mx-auto relative overflow-hidden">
+    <!-- Pixel-style decorative border -->
+    <div class="absolute inset-2 border-2 border-pink-300 rounded pointer-events-none"></div>
+    
+    <!-- Card Content -->
+    <div class="relative z-10 text-center space-y-4">
+        <!-- Main Message -->
+        <h1 class="font-press-start text-lg text-cherry-600 leading-relaxed pixel-shadow" 
+            th:text="${card.mainMessage.displayText}">Merry Christmas!</h1>
+        
+        <!-- To Line -->
+        <div class="space-y-1">
+            <p class="font-vt323 text-gray-600 text-lg">TO:</p>
+            <p class="font-doto text-xl text-pink-600 font-bold" 
+               th:text="${card.recipientName}">Someone Special</p>
+        </div>
+        
+        <!-- Custom Message -->
+        <div th:if="${card.customMessage != null and !card.customMessage.isEmpty()}" 
+             class="bg-pink-50 border-2 border-pink-200 rounded p-3 mx-2">
+            <p class="font-vt323 text-gray-700 text-base leading-relaxed" 
+               th:text="${card.customMessage}">Custom message here</p>
+        </div>
+        
+        <!-- From Line -->
+        <div class="space-y-1 pt-2">
+            <p class="font-vt323 text-gray-600 text-lg">FROM:</p>
+            <p class="font-doto text-xl text-cherry-600 font-bold" 
+               th:text="${card.senderName}">Your Name</p>
+        </div>
+    </div>
+    
+    <!-- Pixel decorative corners -->
+    <div class="absolute top-1 left-1 w-3 h-3 bg-cherry-300"></div>
+    <div class="absolute top-1 right-1 w-3 h-3 bg-pink-300"></div>
+    <div class="absolute bottom-1 left-1 w-3 h-3 bg-pink-300"></div>
+    <div class="absolute bottom-1 right-1 w-3 h-3 bg-cherry-300"></div>
+</div>
+
+<style th:fragment="card-styles">
+    .pixel-shadow {
+        text-shadow: 2px 2px 0px rgba(220, 38, 38, 0.3);
+    }
+</style>

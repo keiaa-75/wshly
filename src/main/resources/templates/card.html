@@ -1,31 +1,25 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Your Holiday Card</title>
-</head>
-<body>
-    <h1>Your Holiday Card</h1>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head"></head>
+<body class="bg-gradient-to-br from-pink-50 to-red-50 min-h-screen font-vt323 flex items-center justify-center p-4">
     
-    <div class="card-display">
-        <div class="card-content">
-            <h2 th:text="${card.mainMessage.displayText}">Message</h2>
-            <p>To: <span th:text="${card.recipientName}">Recipient</span></p>
-            <p th:if="${card.customMessage != null and !card.customMessage.isEmpty()}" 
-               th:text="${card.customMessage}">Custom message</p>
-            <p>From: <span th:text="${card.senderName}">Sender</span></p>
-        </div>
+    <!-- Card Display -->
+    <div th:replace="fragments/card :: card-display"></div>
+    
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-6 left-6 space-y-3">
+        <button id="copyBtn" onclick="copyCardLink()" 
+                class="block bg-gradient-to-r from-cherry-500 to-cherry-600 text-white font-doto font-bold px-4 py-3 rounded-lg hover:from-cherry-600 hover:to-cherry-700 transition-colors shadow-lg">
+            COPY LINK
+        </button>
+        
+        <a href="/" 
+           class="block bg-gradient-to-r from-pink-500 to-red-500 text-white font-doto font-bold px-4 py-3 rounded-lg hover:from-pink-600 hover:to-red-600 transition-colors shadow-lg text-center">
+            NEW CARD
+        </a>
     </div>
     
-    <div class="actions">
-        <button onclick="copyLink()">Copy Link</button>
-        <a href="/">Create Another Card</a>
-    </div>
-    
-    <script>
-        function copyLink() {
-            navigator.clipboard.writeText(window.location.href);
-            alert('Link copied!');
-        }
-    </script>
+    <script src="/js/card-display.js"></script>
+    <style th:replace="fragments/card :: card-styles"></style>
 </body>
 </html>
