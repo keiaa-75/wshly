@@ -1,38 +1,72 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Wshly - Holiday Card Creator</title>
-</head>
-<body>
-    <h1>Create Your Holiday Card</h1>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head"></head>
+<body class="bg-gradient-to-br from-pink-50 to-red-50 min-h-screen font-comfortaa">
     
-    <form action="/card" method="get">
-        <div>
-            <label>From:</label>
-            <input type="text" name="senderName" placeholder="Your name" required>
+    <!-- Mobile-first: Settings bottom, preview top -->
+    <div class="flex flex-col min-h-screen md:flex-row">
+        
+        <!-- Card Preview (top on mobile, right on desktop) -->
+        <div class="flex-1 p-4 md:order-2">
+            <div class="card-container max-w-md mx-auto">
+                <h2 class="font-fredoka text-2xl text-center text-red-600 mb-4">Preview</h2>
+                <div id="card-preview" class="text-center space-y-3">
+                    <h3 class="font-bungee text-xl text-pink-600">Merry Christmas!</h3>
+                    <p class="text-gray-600">To: <span class="font-semibold">Someone Special</span></p>
+                    <p class="text-gray-500 italic">Your custom message here...</p>
+                    <p class="text-gray-600">From: <span class="font-semibold">You</span></p>
+                </div>
+            </div>
         </div>
         
-        <div>
-            <label>To:</label>
-            <input type="text" name="recipientName" placeholder="Recipient name" required>
+        <!-- Settings Form (bottom on mobile, left on desktop) -->
+        <div class="w-full md:w-80 p-4 bg-white border-t-2 md:border-t-0 md:border-r-2 border-pink-200 md:order-1">
+            <h1 class="font-fredoka text-2xl text-red-600 mb-6 text-center md:text-left">Create Card</h1>
+            
+            <form action="/card" method="get" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">From:</label>
+                    <input type="text" name="senderName" placeholder="Your name" required
+                           class="w-full px-3 py-2 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">To:</label>
+                    <input type="text" name="recipientName" placeholder="Recipient name" required
+                           class="w-full px-3 py-2 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Message:</label>
+                    <select name="mainMessage" 
+                            class="w-full px-3 py-2 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400">
+                        <option th:each="message : ${messages}" 
+                                th:value="${message}" 
+                                th:text="${message.displayText}">
+                        </option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Custom Message:</label>
+                    <textarea name="customMessage" placeholder="Add your personal touch..." maxlength="150"
+                              class="w-full px-3 py-2 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 h-20 resize-none"></textarea>
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold py-3 rounded-lg hover:from-pink-600 hover:to-red-600 transition-colors">
+                    Create Card
+                </button>
+                
+                <button type="button" id="copyLink"
+                        class="w-full bg-gradient-to-r from-cherry-500 to-cherry-600 text-white font-semibold py-2 rounded-lg hover:from-cherry-600 hover:to-cherry-700 transition-colors">
+                    Copy Shareable Link
+                </button>
+            </form>
         </div>
         
-        <div>
-            <label>Message:</label>
-            <select name="mainMessage">
-                <option th:each="message : ${messages}" 
-                        th:value="${message}" 
-                        th:text="${message.displayText}">
-                </option>
-            </select>
-        </div>
-        
-        <div>
-            <label>Custom Message:</label>
-            <textarea name="customMessage" placeholder="Add your personal touch..." maxlength="150"></textarea>
-        </div>
-        
-        <button type="submit">Create Card</button>
-    </form>
+    </div>
+    
+    <script src="/js/card-creator.js"></script>
 </body>
 </html>
