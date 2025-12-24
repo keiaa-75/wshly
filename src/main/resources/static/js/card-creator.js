@@ -4,6 +4,34 @@ const CardCreator = {
         CHAR_WARNING_THRESHOLD: 20
     },
     
+    urlParams: {
+        parse: function() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                senderName: params.get('senderName'),
+                recipientName: params.get('recipientName'),
+                mainMessage: params.get('mainMessage'),
+                customMessage: params.get('customMessage')
+            };
+        },
+        
+        populateForm: function() {
+            const params = this.parse();
+            if (params.senderName) {
+                $('input[name="senderName"]').val(params.senderName);
+            }
+            if (params.recipientName) {
+                $('input[name="recipientName"]').val(params.recipientName);
+            }
+            if (params.mainMessage) {
+                $('select[name="mainMessage"]').val(params.mainMessage);
+            }
+            if (params.customMessage) {
+                $('textarea[name="customMessage"]').val(params.customMessage);
+            }
+        }
+    },
+    
     preview: {
         update: function() {
             const senderName = $('input[name="senderName"]').val() || 'You';
@@ -127,6 +155,7 @@ const CardCreator = {
     init: function() {
         const self = this;
         
+        this.urlParams.populateForm();
         this.preview.init();
         this.validation.updateCharCounter();
         
