@@ -11,7 +11,8 @@ const CardCreator = {
                 senderName: params.get('senderName'),
                 recipientName: params.get('recipientName'),
                 mainMessage: params.get('mainMessage'),
-                customMessage: params.get('customMessage')
+                customMessage: params.get('customMessage'),
+                f: params.get('f')
             };
         },
         
@@ -98,6 +99,7 @@ const CardCreator = {
             if (customMsg.trim()) {
                 params.set('customMessage', customMsg);
             }
+            params.set('f', '1');
             return `${window.location.origin}/card?${params.toString()}`;
         },
         
@@ -118,6 +120,22 @@ const CardCreator = {
     },
     
     ui: {
+        setFormVisibility: function(params) {
+            if (params.f === '1') {
+                const $formPane = $('#form-pane');
+                const $toggleIcon = $('#toggle-icon');
+                const $previewArea = $('#preview-area');
+                
+                $formPane.addClass('translate-y-full md:translate-y-0 md:-translate-x-full');
+                $toggleIcon.addClass('rotate-180').removeClass('md:rotate-90').addClass('md:-rotate-90');
+                $previewArea.removeClass('md:left-80').addClass('md:left-0');
+                
+                if ($(window).width() < 768) {
+                    $previewArea.css('bottom', '0');
+                }
+            }
+        },
+        
         toggleForm: function() {
             const $formPane = $('#form-pane');
             const $toggleIcon = $('#toggle-icon');
@@ -154,6 +172,7 @@ const CardCreator = {
     
     init: function() {
         const self = this;
+        const params = this.urlParams.parse();
         
         this.urlParams.populateForm();
         this.preview.init();
@@ -172,6 +191,7 @@ const CardCreator = {
         });
         
         this.ui.toggleForm();
+        this.ui.setFormVisibility(params);
     }
 };
 
