@@ -22,42 +22,5 @@
     </div>
     
     <script src="/js/card-creator.js"></script>
-    
-    <script>
-        // Form pane toggle functionality
-        $(document).ready(function() {
-            const $formPane = $('#form-pane');
-            const $toggleIcon = $('#toggle-icon');
-            const $previewArea = $('#preview-area');
-            let isCollapsed = false;
-            
-            const formHeight = $formPane.outerHeight();
-            const isMobile = () => $(window).width() < 768;
-            
-            $('#form-toggle').click(function() {
-                isCollapsed = !isCollapsed;
-                
-                if (isCollapsed) {
-                    $formPane.addClass('translate-y-full md:translate-y-0 md:-translate-x-full');
-                    $toggleIcon.addClass('rotate-180').removeClass('md:rotate-90').addClass('md:-rotate-90');
-                    $previewArea.removeClass('md:left-80').addClass('md:left-0');
-                    if (isMobile()) {
-                        $previewArea.css('bottom', '0');
-                    }
-                } else {
-                    $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
-                    $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
-                    $previewArea.removeClass('md:left-0').addClass('md:left-80');
-                    if (isMobile()) {
-                        $previewArea.css('bottom', formHeight + 'px');
-                    }
-                }
-            });
-            
-            if (isMobile()) {
-                $previewArea.css('bottom', formHeight + 'px');
-            }
-        });
-    </script>
 </body>
 </html>
