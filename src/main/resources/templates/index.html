@@ -59,11 +59,11 @@
     </div>
     
     <!-- Form Layout (when no card or form is visible) -->
-    <div th:if="${card == null or showForm}" class="flex flex-col min-h-screen md:flex-row">
+    <div th:if="${card == null or showForm}" class="relative min-h-screen overflow-hidden">
         
-        <!-- Card Preview (top on mobile, right on desktop) -->
-        <div class="flex-1 p-4 md:order-2">
-            <div class="max-w-sm mx-auto">
+        <!-- Card Preview - Full screen, always centered -->
+        <div class="absolute inset-0 md:left-80 flex items-center justify-center p-4 transition-all duration-300" id="preview-area">
+            <div class="w-full max-w-sm">
                 <h2 class="font-superhelio text-2xl text-center text-red-600 mb-4 font-bold">PREVIEW</h2>
                 <!-- Preview Card (updated by jQuery) -->
                 <div class="bg-white rounded-lg shadow-xl border-4 border-cherry-400 p-6 relative overflow-hidden">
@@ -88,10 +88,10 @@
             </div>
         </div>
         
-        <!-- Settings Form (bottom on mobile, left on desktop) -->
-        <div id="form-pane" class="w-full md:w-80 p-4 bg-white border-t-2 md:border-t-0 md:border-r-2 border-pink-200 md:order-1 transition-transform duration-300 ease-in-out transform translate-y-0 md:translate-y-0 md:translate-x-0 relative">
+        <!-- Settings Form - Slides in from bottom (mobile) / left (desktop) -->
+        <div id="form-pane" class="fixed bottom-0 left-0 md:top-0 w-full md:w-80 p-4 bg-white border-t-2 md:border-t-0 md:border-r-2 border-pink-200 transition-transform duration-300 ease-in-out z-20">
             <!-- Tab Handle -->
-            <button id="form-toggle" class="absolute -top-8 left-1/2 transform -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:left-full md:translate-x-0 bg-white border-2 border-pink-200 border-b-0 md:border-b-2 md:border-l-0 rounded-t-lg md:rounded-l-none md:rounded-r-lg px-3 py-2 md:px-2 md:py-3 hover:bg-pink-50 transition-colors">
+            <button id="form-toggle" class="absolute -top-8 left-1/2 transform -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:left-full md:translate-x-0 bg-white border-2 border-pink-200 border-b-0 md:border-b-2 md:border-l-0 rounded-t-lg md:rounded-l-none md:rounded-r-lg px-3 py-2 md:px-2 md:py-3 hover:bg-pink-50 transition-colors z-30">
                 <div class="flex items-center justify-center">
                     <svg id="toggle-icon" class="w-4 h-4 text-cherry-600 transition-transform duration-300 md:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
@@ -151,19 +151,24 @@
         $(document).ready(function() {
             const $formPane = $('#form-pane');
             const $toggleIcon = $('#toggle-icon');
+            const $previewArea = $('#preview-area');
             let isCollapsed = false;
             
             $('#form-toggle').click(function() {
                 isCollapsed = !isCollapsed;
                 
                 if (isCollapsed) {
-                    // Collapse
+                    // Collapse - slide form out
                     $formPane.addClass('translate-y-full md:translate-y-0 md:-translate-x-full');
                     $toggleIcon.addClass('rotate-180').removeClass('md:rotate-90').addClass('md:-rotate-90');
+                    // Preview takes full width
+                    $previewArea.removeClass('md:left-80').addClass('md:left-0');
                 } else {
-                    // Expand
+                    // Expand - slide form in
                     $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
                     $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
+                    // Preview accounts for form width
+                    $previewArea.removeClass('md:left-0').addClass('md:left-80');
                 }
             });
         });
