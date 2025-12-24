@@ -25,7 +25,21 @@ const wshly = {
                 $('input[name="recipientName"]').val(params.recipientName);
             }
             if (params.mainMessage) {
-                $('select[name="mainMessage"]').val(params.mainMessage);
+                // Handle custom dropdown
+                const dropdown = $('.pixel-dropdown[data-name="mainMessage"]');
+                const hiddenInput = dropdown.find('input[type="hidden"]');
+                const dropdownText = dropdown.find('.dropdown-text');
+                const options = dropdown.find('.pixel-dropdown-option');
+                
+                hiddenInput.val(params.mainMessage);
+                
+                // Find and select the matching option
+                options.removeClass('selected');
+                const matchingOption = options.filter(`[data-value="${params.mainMessage}"]`);
+                if (matchingOption.length) {
+                    matchingOption.addClass('selected');
+                    dropdownText.text(matchingOption.text());
+                }
             }
             if (params.customMessage) {
                 $('textarea[name="customMessage"]').val(params.customMessage);
@@ -37,7 +51,12 @@ const wshly = {
         update: function() {
             const senderName = $('input[name="senderName"]').val() || 'You';
             const recipientName = $('input[name="recipientName"]').val() || 'Someone Special';
-            const mainMessage = $('select[name="mainMessage"] option:selected').text() || 'Merry Christmas!';
+            
+            // Get selected message from custom dropdown
+            const dropdown = $('.pixel-dropdown[data-name="mainMessage"]');
+            const selectedOption = dropdown.find('.pixel-dropdown-option.selected');
+            const mainMessage = selectedOption.length ? selectedOption.text() : 'Merry Christmas!';
+            
             const customMessage = $('textarea[name="customMessage"]').val();
             
             $('#card-content').html(`
@@ -94,7 +113,12 @@ const wshly = {
             const params = new URLSearchParams();
             params.set('senderName', $('input[name="senderName"]').val());
             params.set('recipientName', $('input[name="recipientName"]').val());
-            params.set('mainMessage', $('select[name="mainMessage"]').val());
+            
+            // Get value from custom dropdown
+            const dropdown = $('.pixel-dropdown[data-name="mainMessage"]');
+            const hiddenInput = dropdown.find('input[type="hidden"]');
+            params.set('mainMessage', hiddenInput.val());
+            
             const customMsg = $('textarea[name="customMessage"]').val();
             if (customMsg.trim()) {
                 params.set('customMessage', customMsg);

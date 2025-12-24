@@ -14,6 +14,7 @@ public class CardController {
     @GetMapping("/")
     public String home(@RequestParam(defaultValue = "1") String f, Model model) {
         model.addAttribute("messages", MainMessage.values());
+        model.addAttribute("defaultMessage", MainMessage.MERRY_CHRISTMAS);
         model.addAttribute("showForm", f.equals("1"));
         return "index";
     }
@@ -30,6 +31,7 @@ public class CardController {
         Card card = new Card(senderName, recipientName, mainMessage, customMessage);
         model.addAttribute("card", card);
         model.addAttribute("messages", MainMessage.values());
+        model.addAttribute("defaultMessage", mainMessage);
         model.addAttribute("showForm", f.equals("1"));
         return "index";
     }
