@@ -21,6 +21,14 @@
                     'aux-dotbitc': ['AuX DotBitC', 'Courier New', 'monospace']
                 }
             }
-        }
+        },
+        plugins: [
+            function({ addUtilities }) {
+                addUtilities({
+                    '.dir-ltr': { direction: 'ltr' },
+                    '.dir-rtl': { direction: 'rtl' }
+                })
+            }
+        ]
     }
 </script>

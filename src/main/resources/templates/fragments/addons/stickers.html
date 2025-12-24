@@ -1,16 +1,6 @@
 <div th:fragment="stickers" xmlns:th="http://www.thymeleaf.org">
     <style>
-        .sticker-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            direction: rtl;
-            gap: 0.5rem;
-            max-width: 180px;
-            margin: 0 auto;
-        }
-        
         .sticker-container {
-            direction: ltr;
             aspect-ratio: 1;
             display: flex;
             align-items: center;
@@ -25,11 +15,11 @@
         }
     </style>
     
-    <div class="sticker-grid">
-        <div class="sticker-container"><img src="/svg/sticker-tree.svg" alt="Christmas Tree"></div>
-        <div class="sticker-container"><img src="/svg/sticker-gift.svg" alt="Gift Box"></div>
-        <div class="sticker-container"><img src="/svg/sticker-candy-cane.svg" alt="Candy Cane"></div>
-        <div class="sticker-container"><img src="/svg/sticker-snowflake.svg" alt="Snowflake"></div>
-        <div class="sticker-container"><img src="/svg/sticker-star.svg" alt="Star"></div>
+    <div class="grid grid-cols-3 gap-2 max-w-[180px] mx-auto dir-ltr sm:dir-rtl">
+        <div class="sticker-container dir-ltr"><img src="/svg/sticker-tree.svg" alt="Christmas Tree"></div>
+        <div class="sticker-container dir-ltr"><img src="/svg/sticker-gift.svg" alt="Gift Box"></div>
+        <div class="sticker-container dir-ltr"><img src="/svg/sticker-candy-cane.svg" alt="Candy Cane"></div>
+        <div class="sticker-container dir-ltr"><img src="/svg/sticker-snowflake.svg" alt="Snowflake"></div>
+        <div class="sticker-container dir-ltr"><img src="/svg/sticker-star.svg" alt="Star"></div>
     </div>
 </div>
