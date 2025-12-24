@@ -109,10 +109,13 @@ const wshly = {
             
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(url).then(() => {
-                    const originalText = $btn.text();
-                    $btn.text('Copied!').removeClass('from-pink-500 to-red-500').addClass('from-green-500 to-green-600');
+                    const originalText = $btn.find('span').text();
+                    $btn.addClass('copied');
+                    $btn.find('span').text('Copied! <3');
+                    
                     setTimeout(() => {
-                        $btn.text(originalText).removeClass('from-green-500 to-green-600').addClass('from-pink-500 to-red-500');
+                        $btn.removeClass('copied');
+                        $btn.find('span').text(originalText);
                     }, 2000);
                 });
             }
