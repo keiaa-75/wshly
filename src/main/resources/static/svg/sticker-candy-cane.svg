@@ -1,0 +1,23 @@
+<svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Pixelated rounded container -->
+    <path d="M4 0h44v2h2v2h2v44h-2v2h-2v2H4v-2H2v-2H0V4h2V2h2V0z" fill="#fecaca"/>
+    <!-- Dashed stamp border -->
+    <path d="M6 4h4v2H6zM14 4h4v2h-4zM22 4h8v2h-8zM34 4h4v2h-4zM42 4h4v2h-4z" fill="#fca5a5"/>
+    <path d="M48 6h2v4h-2zM48 14h2v4h-2zM48 22h2v8h-2zM48 34h2v4h-2zM48 42h2v4h-2z" fill="#fca5a5"/>
+    <path d="M42 48h4v2h-4zM34 48h4v2h-4zM22 48h8v2h-8zM14 48h4v2h-4zM6 48h4v2H6z" fill="#fca5a5"/>
+    <path d="M2 42h2v4H2zM2 34h2v4H2zM2 22h2v8H2zM2 14h2v4H2zM2 6h2v4H2z" fill="#fca5a5"/>
+    <!-- Cane hook -->
+    <rect x="22" y="8" width="16" height="4" fill="#ffffff"/>
+    <rect x="34" y="12" width="4" height="8" fill="#ef4444"/>
+    <rect x="18" y="12" width="4" height="4" fill="#ef4444"/>
+    <!-- Cane body -->
+    <rect x="18" y="16" width="4" height="6" fill="#ffffff"/>
+    <rect x="18" y="22" width="4" height="6" fill="#ef4444"/>
+    <rect x="18" y="28" width="4" height="6" fill="#ffffff"/>
+    <rect x="18" y="34" width="4" height="6" fill="#ef4444"/>
+    <rect x="18" y="40" width="4" height="6" fill="#ffffff"/>
+    <!-- Hook top stripes -->
+    <rect x="22" y="8" width="4" height="4" fill="#ef4444"/>
+    <rect x="30" y="8" width="4" height="4" fill="#ef4444"/>
+    <rect x="34" y="16" width="4" height="4" fill="#ffffff"/>
+</svg>

@@ -1,0 +1,24 @@
+<svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Pixelated rounded container -->
+    <path d="M4 0h44v2h2v2h2v44h-2v2h-2v2H4v-2H2v-2H0V4h2V2h2V0z" fill="#2d5a27"/>
+    <!-- Dashed stamp border -->
+    <path d="M6 4h4v2H6zM14 4h4v2h-4zM22 4h8v2h-8zM34 4h4v2h-4zM42 4h4v2h-4z" fill="#1a3d18"/>
+    <path d="M48 6h2v4h-2zM48 14h2v4h-2zM48 22h2v8h-2zM48 34h2v4h-2zM48 42h2v4h-2z" fill="#1a3d18"/>
+    <path d="M42 48h4v2h-4zM34 48h4v2h-4zM22 48h8v2h-8zM14 48h4v2h-4zM6 48h4v2H6z" fill="#1a3d18"/>
+    <path d="M2 42h2v4H2zM2 34h2v4H2zM2 22h2v8H2zM2 14h2v4H2zM2 6h2v4H2z" fill="#1a3d18"/>
+    <!-- Tree -->
+    <rect x="24" y="10" width="4" height="4" fill="#ffd700"/>
+    <rect x="22" y="14" width="8" height="4" fill="#22c55e"/>
+    <rect x="20" y="18" width="12" height="4" fill="#22c55e"/>
+    <rect x="18" y="22" width="16" height="4" fill="#22c55e"/>
+    <rect x="16" y="26" width="20" height="4" fill="#16a34a"/>
+    <rect x="14" y="30" width="24" height="4" fill="#16a34a"/>
+    <rect x="12" y="34" width="28" height="4" fill="#15803d"/>
+    <!-- Trunk -->
+    <rect x="22" y="38" width="8" height="6" fill="#92400e"/>
+    <!-- Ornaments -->
+    <rect x="24" y="20" width="4" height="4" fill="#ef4444"/>
+    <rect x="18" y="28" width="4" height="4" fill="#fbbf24"/>
+    <rect x="30" y="28" width="4" height="4" fill="#3b82f6"/>
+    <rect x="22" y="34" width="4" height="4" fill="#ec4899"/>
+</svg>
