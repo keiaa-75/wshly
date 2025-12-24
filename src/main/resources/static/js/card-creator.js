@@ -1,4 +1,9 @@
 const CardCreator = {
+    config: {
+        MAX_CHARS: 150,
+        CHAR_WARNING_THRESHOLD: 20
+    },
+    
     preview: {
         update: function() {
             const senderName = $('input[name="senderName"]').val() || 'You';
@@ -41,8 +46,7 @@ const CardCreator = {
         updateCharCounter: function() {
             const $textarea = $('textarea[name="customMessage"]');
             const current = $textarea.val().length;
-            const max = 150;
-            const remaining = max - current;
+            const remaining = CardCreator.config.MAX_CHARS - current;
             
             let $counter = $('#char-counter');
             if ($counter.length === 0) {
@@ -51,8 +55,8 @@ const CardCreator = {
             }
             
             $counter.text(`${remaining} characters remaining`);
-            $counter.toggleClass('text-red-500', remaining < 20);
-            $counter.toggleClass('text-gray-500', remaining >= 20);
+            $counter.toggleClass('text-red-500', remaining < CardCreator.config.CHAR_WARNING_THRESHOLD);
+            $counter.toggleClass('text-gray-500', remaining >= CardCreator.config.CHAR_WARNING_THRESHOLD);
         }
     },
     
@@ -92,7 +96,6 @@ const CardCreator = {
             const $previewArea = $('#preview-area');
             const formHeight = $formPane.outerHeight();
             const isMobile = () => $(window).width() < 768;
-            
             let isCollapsed = false;
             
             $('#form-toggle').on('click', function() {
@@ -124,11 +127,9 @@ const CardCreator = {
     init: function() {
         const self = this;
         
-        // Initialize preview
         this.preview.init();
         this.validation.updateCharCounter();
         
-        // Form input listeners
         $('input, select, textarea').on('input change', function() {
             self.preview.update();
             self.validation.validateField(this);
@@ -137,12 +138,10 @@ const CardCreator = {
             }
         });
         
-        // Copy link button
         $('#copyLink').on('click', function() {
             self.sharing.copyLink();
         });
         
-        // Form toggle
         this.ui.toggleForm();
     }
 };
