@@ -1,23 +1,82 @@
 <div th:fragment="card" xmlns:th="http://www.thymeleaf.org">
-    <div class="bg-white rounded-lg shadow-xl border-4 border-cherry-400 p-6 relative overflow-hidden">
-        <div class="absolute inset-2 border-2 border-pink-300 rounded pointer-events-none"></div>
+    <style>
+        .postcard {
+            --border-stripe-size: 12px;
+            --border-color-primary: #dc2626;
+            --border-color-secondary: #fef2f2;
+            background: 
+                repeating-linear-gradient(
+                    135deg,
+                    var(--border-color-primary) 0,
+                    var(--border-color-primary) var(--border-stripe-size),
+                    var(--border-color-secondary) var(--border-stripe-size),
+                    var(--border-color-secondary) calc(var(--border-stripe-size) * 2)
+                );
+        }
         
-        <div id="card-content" class="relative z-10 text-center space-y-4">
-            <h3 class="font-superhelio text-lg text-cherry-600 leading-relaxed pixel-shadow font-bold">Merry Christmas!</h3>
-            <div class="space-y-1">
-                <p class="font-aux-dotbitc text-gray-600 text-lg">TO:</p>
-                <p class="font-superhelio text-xl text-pink-600 font-bold">Someone Special</p>
-            </div>
-            <div class="space-y-1 pt-2">
-                <p class="font-aux-dotbitc text-gray-600 text-lg">FROM:</p>
-                <p class="font-superhelio text-xl text-cherry-600 font-bold">You</p>
+        .postcard-inner {
+            background: #fffbf5;
+        }
+        
+        .postcard-divider {
+            border-right: 2px dashed #e5e7eb;
+        }
+        
+        @media (max-width: 639px) {
+            .postcard-divider {
+                border-right: none;
+                border-bottom: 2px dashed #e5e7eb;
+            }
+        }
+    </style>
+    
+    <div class="postcard p-3 sm:p-4 rounded-lg shadow-xl">
+        <div class="postcard-inner rounded p-4 sm:p-6">
+            
+            <!-- Header: Main Message -->
+            <header class="text-center mb-4 sm:mb-6 pb-3 border-b-2 border-dashed border-gray-200">
+                <h2 id="card-header" class="font-superhelio text-xl sm:text-2xl text-cherry-600 pixel-shadow font-bold">
+                    Merry Christmas!
+                </h2>
+            </header>
+            
+            <!-- Two-Pane Content -->
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                
+                <!-- Left Pane: Message Content -->
+                <div id="card-message-pane" class="flex-1 postcard-divider pr-0 sm:pr-6 pb-4 sm:pb-0 space-y-4">
+                    
+                    <!-- Custom Message -->
+                    <div id="card-custom-message" class="hidden">
+                        <p class="font-aux-dotbitc text-gray-700 text-sm sm:text-base leading-relaxed break-words"></p>
+                    </div>
+                    
+                    <!-- To Section -->
+                    <div class="space-y-1">
+                        <p class="font-aux-dotbitc text-gray-500 text-sm">TO:</p>
+                        <p id="card-recipient" class="font-superhelio text-lg sm:text-xl text-pink-600 font-bold border-b border-gray-300 pb-1">
+                            Someone Special
+                        </p>
+                    </div>
+                    
+                    <!-- From Section -->
+                    <div class="space-y-1">
+                        <p class="font-aux-dotbitc text-gray-500 text-sm">FROM:</p>
+                        <p id="card-sender" class="font-superhelio text-lg sm:text-xl text-cherry-600 font-bold border-b border-gray-300 pb-1">
+                            You
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Right Pane: Decorative Elements -->
+                <div id="card-addon-pane" class="flex-1 flex flex-col items-center justify-center gap-3 min-h-24 sm:min-h-32">
+                    <!-- Addons will be inserted here -->
+                    <div class="text-gray-300 font-aux-dotbitc text-xs text-center">
+                        <!-- Placeholder for Phase 2 addons -->
+                    </div>
+                </div>
+                
             </div>
         </div>
-        
-        <div class="absolute top-1 left-1 w-3 h-3 bg-cherry-300"></div>
-        <div class="absolute top-1 right-1 w-3 h-3 bg-pink-300"></div>
-        <div class="absolute bottom-1 left-1 w-3 h-3 bg-pink-300"></div>
-        <div class="absolute bottom-1 right-1 w-3 h-3 bg-cherry-300"></div>
     </div>
 </div>
-

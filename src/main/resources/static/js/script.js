@@ -59,18 +59,18 @@ const wshly = {
             
             const customMessage = $('textarea[name="customMessage"]').val();
             
-            $('#card-content').html(`
-                <h3 class="font-superhelio text-lg text-cherry-600 leading-relaxed pixel-shadow font-bold">${mainMessage}</h3>
-                <div class="space-y-1">
-                    <p class="font-aux-dotbitc text-gray-600 text-lg">TO:</p>
-                    <p class="font-superhelio text-xl text-pink-600 font-bold">${recipientName}</p>
-                </div>
-                ${customMessage.trim() ? `<div class="bg-pink-50 border-2 border-pink-200 rounded p-3 mx-2"><p class="font-aux-dotbitc text-gray-700 text-base leading-relaxed break-words">${customMessage}</p></div>` : ''}
-                <div class="space-y-1 pt-2">
-                    <p class="font-aux-dotbitc text-gray-600 text-lg">FROM:</p>
-                    <p class="font-superhelio text-xl text-cherry-600 font-bold">${senderName}</p>
-                </div>
-            `);
+            // Update card elements
+            $('#card-header').text(mainMessage);
+            $('#card-recipient').text(recipientName);
+            $('#card-sender').text(senderName);
+            
+            // Handle custom message visibility
+            const $customMsgContainer = $('#card-custom-message');
+            if (customMessage.trim()) {
+                $customMsgContainer.removeClass('hidden').find('p').text(customMessage);
+            } else {
+                $customMsgContainer.addClass('hidden');
+            }
         },
         
         init: function() {
