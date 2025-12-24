@@ -46,7 +46,7 @@ const wshly = {
                     <p class="font-aux-dotbitc text-gray-600 text-lg">TO:</p>
                     <p class="font-superhelio text-xl text-pink-600 font-bold">${recipientName}</p>
                 </div>
-                ${customMessage.trim() ? `<div class="bg-pink-50 border-2 border-pink-200 rounded p-3 mx-2"><p class="font-aux-dotbitc text-gray-700 text-base leading-relaxed">${customMessage}</p></div>` : ''}
+                ${customMessage.trim() ? `<div class="bg-pink-50 border-2 border-pink-200 rounded p-3 mx-2"><p class="font-aux-dotbitc text-gray-700 text-base leading-relaxed break-words">${customMessage}</p></div>` : ''}
                 <div class="space-y-1 pt-2">
                     <p class="font-aux-dotbitc text-gray-600 text-lg">FROM:</p>
                     <p class="font-superhelio text-xl text-cherry-600 font-bold">${senderName}</p>
