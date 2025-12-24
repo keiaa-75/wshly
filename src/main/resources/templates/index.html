@@ -156,6 +156,7 @@
             
             // Get form height for mobile adjustment
             const formHeight = $formPane.outerHeight();
+            const isMobile = () => window.innerWidth < 768;
             
             $('#form-toggle').click(function() {
                 isCollapsed = !isCollapsed;
@@ -166,19 +167,23 @@
                     $toggleIcon.addClass('rotate-180').removeClass('md:rotate-90').addClass('md:-rotate-90');
                     // Preview adjustments
                     $previewArea.removeClass('md:left-80').addClass('md:left-0');
-                    $previewArea.css('bottom', '0');
+                    if (isMobile()) {
+                        $previewArea.css('bottom', '0');
+                    }
                 } else {
                     // Expand - slide form in
                     $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
                     $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
                     // Preview adjustments
                     $previewArea.removeClass('md:left-0').addClass('md:left-80');
-                    $previewArea.css('bottom', formHeight + 'px');
+                    if (isMobile()) {
+                        $previewArea.css('bottom', formHeight + 'px');
+                    }
                 }
             });
             
             // Set initial bottom on mobile
-            if (window.innerWidth < 768) {
+            if (isMobile()) {
                 $previewArea.css('bottom', formHeight + 'px');
             }
         });
