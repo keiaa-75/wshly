@@ -1,4 +1,4 @@
-const CardCreator = {
+const wshly = {
     config: {
         MAX_CHARS: 150,
         CHAR_WARNING_THRESHOLD: 20
@@ -75,7 +75,7 @@ const CardCreator = {
         updateCharCounter: function() {
             const $textarea = $('textarea[name="customMessage"]');
             const current = $textarea.val().length;
-            const remaining = CardCreator.config.MAX_CHARS - current;
+            const remaining = wshly.config.MAX_CHARS - current;
             
             let $counter = $('#char-counter');
             if ($counter.length === 0) {
@@ -84,8 +84,8 @@ const CardCreator = {
             }
             
             $counter.text(`${remaining} characters remaining`);
-            $counter.toggleClass('text-red-500', remaining < CardCreator.config.CHAR_WARNING_THRESHOLD);
-            $counter.toggleClass('text-gray-500', remaining >= CardCreator.config.CHAR_WARNING_THRESHOLD);
+            $counter.toggleClass('text-red-500', remaining < wshly.config.CHAR_WARNING_THRESHOLD);
+            $counter.toggleClass('text-gray-500', remaining >= wshly.config.CHAR_WARNING_THRESHOLD);
         }
     },
     
@@ -196,5 +196,5 @@ const CardCreator = {
 };
 
 $(document).ready(function() {
-    CardCreator.init();
+    wshly.init();
 });

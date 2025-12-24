@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head}"></head>
+<head th:replace="~{fragments/config/layout :: head}"></head>
 <body class="bg-gradient-to-br from-pink-50 to-red-50 min-h-screen font-aux-dotbitc">
     
     <div class="relative min-h-screen overflow-hidden">
@@ -8,18 +8,18 @@
         <!-- Card Preview - Full screen, always centered -->
         <div class="absolute inset-0 md:left-80 flex items-center justify-center p-4 transition-all duration-300" id="preview-area">
             <div class="w-full max-w-sm">
-                <div th:replace="~{fragments/card-display :: card}"></div>
+                <div th:replace="~{fragments/components/card-display :: card}"></div>
             </div>
         </div>
         
         <!-- Settings Form - Slides in from bottom (mobile) / left (desktop) -->
         <div id="form-pane" class="fixed bottom-0 left-0 md:top-0 w-full md:w-80 p-4 bg-white border-t-2 md:border-t-0 md:border-r-2 border-pink-200 transition-transform duration-300 ease-in-out z-20">
-            <div th:replace="~{fragments/form-toggle :: toggle}"></div>
-            <div th:replace="~{fragments/card-form :: form(${messages})}"></div>
+            <div th:replace="~{fragments/components/form-toggle :: toggle}"></div>
+            <div th:replace="~{fragments/components/card-form :: form(${messages})}"></div>
         </div>
         
     </div>
     
-    <script src="/js/card-creator.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
