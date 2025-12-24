@@ -1,0 +1,33 @@
+<div th:fragment="gingerbread-stamp" xmlns:th="http://www.thymeleaf.org">
+    <style>
+        .stamp {
+            --stamp-bg: #3b82f6;
+            --stamp-border: #1e40af;
+            background: var(--stamp-bg);
+            border: 3px solid var(--stamp-border);
+            padding: 8px;
+            position: relative;
+        }
+        
+        .stamp::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            background: inherit;
+            z-index: -1;
+            mask-image: radial-gradient(circle at 6px 6px, transparent 4px, black 4px);
+            mask-size: 12px 12px;
+            -webkit-mask-image: radial-gradient(circle at 6px 6px, transparent 4px, black 4px);
+            -webkit-mask-size: 12px 12px;
+        }
+        
+        .stamp-value {
+            font-size: 0.625rem;
+        }
+    </style>
+    
+    <div class="stamp w-16 sm:w-20 aspect-square flex flex-col items-center justify-center">
+        <div class="text-2xl sm:text-3xl">🍪</div>
+        <span class="stamp-value font-superhelio text-white font-bold">52</span>
+    </div>
+</div>

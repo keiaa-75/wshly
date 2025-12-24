@@ -1,0 +1,28 @@
+<div th:fragment="pixel-snowflakes" xmlns:th="http://www.thymeleaf.org">
+    <style>
+        .snowflakes {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .snowflake {
+            position: absolute;
+            color: #bfdbfe;
+            opacity: 0.6;
+        }
+        
+        .snowflake-sm { font-size: 0.625rem; }
+        .snowflake-md { font-size: 0.875rem; }
+        .snowflake-lg { font-size: 1rem; }
+    </style>
+    
+    <div class="snowflakes">
+        <span class="snowflake snowflake-sm" style="top: 10%; left: 15%;">❄</span>
+        <span class="snowflake snowflake-md" style="top: 60%; left: 5%;">❄</span>
+        <span class="snowflake snowflake-sm" style="top: 85%; left: 25%;">❄</span>
+        <span class="snowflake snowflake-lg" style="top: 30%; right: 10%;">❄</span>
+        <span class="snowflake snowflake-sm" style="top: 75%; right: 20%;">❄</span>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div th:fragment="north-pole-postmark" xmlns:th="http://www.thymeleaf.org">
+    <style>
+        .postmark {
+            --postmark-color: #dc2626;
+            width: 4.5rem;
+            height: 4.5rem;
+            border: 3px solid var(--postmark-color);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            opacity: 0.85;
+            transform: rotate(-12deg);
+        }
+        
+        .postmark::before,
+        .postmark::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120%;
+            border-top: 2px solid var(--postmark-color);
+        }
+        
+        .postmark::before { top: -8px; }
+        .postmark::after { bottom: -8px; }
+        
+        .postmark-text {
+            font-size: 0.5rem;
+            color: var(--postmark-color);
+            letter-spacing: 0.05em;
+        }
+        
+        .postmark-icon {
+            font-size: 1rem;
+            line-height: 1;
+        }
+        
+        @media (min-width: 640px) {
+            .postmark {
+                width: 5.5rem;
+                height: 5.5rem;
+            }
+            .postmark-text { font-size: 0.55rem; }
+            .postmark-icon { font-size: 1.25rem; }
+        }
+    </style>
+    
+    <div class="postmark">
+        <span class="postmark-text font-aux-dotbitc font-bold">NORTH POLE</span>
+        <span class="postmark-icon">🦌</span>
+        <span class="postmark-text font-aux-dotbitc font-bold">EXPRESS</span>
+    </div>
+</div>
