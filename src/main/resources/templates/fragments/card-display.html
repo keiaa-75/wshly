@@ -1,0 +1,23 @@
+<div th:fragment="card" xmlns:th="http://www.thymeleaf.org">
+    <div class="bg-white rounded-lg shadow-xl border-4 border-cherry-400 p-6 relative overflow-hidden">
+        <div class="absolute inset-2 border-2 border-pink-300 rounded pointer-events-none"></div>
+        
+        <div id="card-content" class="relative z-10 text-center space-y-4">
+            <h3 class="font-superhelio text-lg text-cherry-600 leading-relaxed pixel-shadow font-bold">Merry Christmas!</h3>
+            <div class="space-y-1">
+                <p class="font-aux-dotbitc text-gray-600 text-lg">TO:</p>
+                <p class="font-superhelio text-xl text-pink-600 font-bold">Someone Special</p>
+            </div>
+            <div class="space-y-1 pt-2">
+                <p class="font-aux-dotbitc text-gray-600 text-lg">FROM:</p>
+                <p class="font-superhelio text-xl text-cherry-600 font-bold">You</p>
+            </div>
+        </div>
+        
+        <div class="absolute top-1 left-1 w-3 h-3 bg-cherry-300"></div>
+        <div class="absolute top-1 right-1 w-3 h-3 bg-pink-300"></div>
+        <div class="absolute bottom-1 left-1 w-3 h-3 bg-pink-300"></div>
+        <div class="absolute bottom-1 right-1 w-3 h-3 bg-cherry-300"></div>
+    </div>
+</div>
+

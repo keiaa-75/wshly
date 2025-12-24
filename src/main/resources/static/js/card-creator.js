@@ -6,7 +6,7 @@ $(document).ready(function() {
         const mainMessage = $('select[name="mainMessage"] option:selected').text() || 'Merry Christmas!';
         const customMessage = $('textarea[name="customMessage"]').val();
         
-                $('#card-preview').html(`
+                $('#card-content').html(`
                     <h3 class="font-superhelio text-lg text-cherry-600 leading-relaxed pixel-shadow font-bold">${mainMessage}</h3>
                     <div class="space-y-1">
                         <p class="font-aux-dotbitc text-gray-600 text-lg">TO:</p>
