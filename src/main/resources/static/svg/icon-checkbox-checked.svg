@@ -1,9 +1,0 @@
-<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Checked state - red box with checkmark -->
-    <rect x="2" y="2" width="12" height="12" fill="#ef4444"/>
-    <!-- Checkmark -->
-    <rect x="4" y="8" width="2" height="2" fill="#ffffff"/>
-    <rect x="6" y="10" width="2" height="2" fill="#ffffff"/>
-    <rect x="8" y="8" width="2" height="2" fill="#ffffff"/>
-    <rect x="10" y="6" width="2" height="2" fill="#ffffff"/>
-</svg>

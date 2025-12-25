@@ -37,7 +37,8 @@
         <div class="flex items-center gap-2 mb-2">
             <button type="button" id="shorten-toggle" role="checkbox" aria-checked="false" aria-labelledby="shorten-label"
                     class="w-4 h-4 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-offset-1 rounded-sm" style="--tw-ring-color: var(--theme-400)">
-                <img id="shorten-icon" src="/svg/icon-checkbox-unchecked.svg" alt="" class="w-full h-full">
+                <span id="checkbox-unchecked" th:insert="~{fragments/components/checkbox-icons :: checkbox-unchecked}"></span>
+                <span id="checkbox-checked" class="hidden" th:insert="~{fragments/components/checkbox-icons :: checkbox-checked}"></span>
             </button>
             <label id="shorten-label" class="text-xs text-gray-500 font-aux-dotbitc cursor-pointer select-none leading-none">Shorten link</label>
         </div>

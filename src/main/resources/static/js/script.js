@@ -278,7 +278,8 @@ const wshly = {
             const newState = !isChecked;
             
             $toggle.attr('aria-checked', newState);
-            $('#shorten-icon').attr('src', '/svg/icon-checkbox-' + (newState ? 'checked' : 'unchecked') + '.svg');
+            $('#checkbox-unchecked').toggleClass('hidden', newState);
+            $('#checkbox-checked').toggleClass('hidden', !newState);
         }
     },
     

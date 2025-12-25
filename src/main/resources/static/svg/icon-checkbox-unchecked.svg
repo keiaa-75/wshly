@@ -1,7 +1,0 @@
-<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Unchecked state - pink border -->
-    <rect x="2" y="2" width="12" height="2" fill="#fca5a5"/>
-    <rect x="2" y="12" width="12" height="2" fill="#fca5a5"/>
-    <rect x="2" y="4" width="2" height="8" fill="#fca5a5"/>
-    <rect x="12" y="4" width="2" height="8" fill="#fca5a5"/>
-</svg>
