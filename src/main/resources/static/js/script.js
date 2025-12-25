@@ -38,7 +38,8 @@ const wshly = {
                 mainMessage: params.get('mainMessage'),
                 customMessage: params.get('customMessage'),
                 f: params.get('f'),
-                m: params.get('m')
+                m: params.get('m'),
+                error: params.get('error')
             };
         },
         
@@ -293,6 +294,21 @@ const wshly = {
         
         this.ui.toggleForm();
         this.ui.setFormVisibility(params);
+        
+        // Show error modal if error param exists
+        if (params.error) {
+            $('#error-modal').removeClass('hidden');
+        }
+        
+        $('#close-error').on('click', function() {
+            $('#error-modal').addClass('hidden');
+        });
+        
+        $('#error-modal').on('click', function(e) {
+            if (e.target === this) {
+                $('#error-modal').addClass('hidden');
+            }
+        });
     }
 };
 
