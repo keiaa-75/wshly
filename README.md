@@ -10,7 +10,7 @@
 
 ![wshly app screenshot](screenshot.png)
 
-wshly is a simple, responsive web application for creating cute, little, quirky Holiday cards.
+**wshly** is a simple, responsive web application for creating cute, little, quirky Holiday cards.
 
 ## Getting Started
 
