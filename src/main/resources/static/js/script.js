@@ -72,10 +72,33 @@ const wshly = {
             } else {
                 $customMsgContainer.addClass('hidden');
             }
+            
+            // Check layout mode
+            this.checkDesktopMode();
+        },
+        
+        checkDesktopMode: function() {
+            const $container = $('#postcard-container');
+            const $messagePane = $('#card-message-pane');
+            const $addonPane = $('#card-addon-pane');
+            
+            // Detect if panes are side-by-side (horizontal layout)
+            const messageTop = $messagePane.offset()?.top || 0;
+            const addonTop = $addonPane.offset()?.top || 0;
+            const isHorizontal = Math.abs(messageTop - addonTop) < 10;
+            
+            if (isHorizontal) {
+                $container.addClass('desktop-mode');
+            } else {
+                $container.removeClass('desktop-mode');
+            }
         },
         
         init: function() {
             this.update();
+            
+            // Re-check on resize
+            $(window).on('resize', () => this.checkDesktopMode());
         }
     },
     

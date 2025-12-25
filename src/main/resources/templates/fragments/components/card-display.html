@@ -19,40 +19,54 @@
         }
         
         .postcard-divider {
+            border-bottom: 2px dashed #e5e7eb;
+        }
+        
+        /* Desktop mode - applied via JS when horizontal layout detected */
+        .desktop-mode .postcard-divider {
+            border-bottom: none;
             border-right: 2px dashed #e5e7eb;
         }
         
-        @media (max-width: 639px) {
-            .postcard-divider {
-                border-right: none;
-                border-bottom: 2px dashed #e5e7eb;
-            }
+        .desktop-mode .postcard-inner {
+            height: 320px;
+        }
+        
+        .desktop-mode .custom-message-scroll {
+            max-height: 78px;
+            overflow-y: auto;
+        }
+        
+        .desktop-mode .from-section {
+            margin-top: auto;
         }
     </style>
     
-    <div class="postcard p-3 sm:p-4 rounded-lg shadow-xl">
-        <div class="postcard-inner relative rounded p-4 sm:p-6">
+    <div id="postcard-container" class="postcard p-3 sm:p-4 rounded-lg shadow-xl">
+        <div class="postcard-inner relative rounded p-4 sm:p-6 flex flex-col">
             
             <!-- Header: Main Message -->
-            <header class="text-center mb-4 sm:mb-6 pb-3 border-b-2 border-dashed border-gray-200">
+            <header class="text-center mb-4 sm:mb-6 pb-3 border-b-2 border-dashed border-gray-200 shrink-0">
                 <h2 id="card-header" class="font-superhelio text-xl sm:text-2xl text-cherry-600 pixel-shadow font-bold">
                     Merry Christmas!
                 </h2>
             </header>
             
             <!-- Two-Pane Content -->
-            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            <div id="card-content" class="flex flex-col sm:flex-row gap-4 sm:gap-6 flex-1 min-h-0 overflow-hidden">
                 
                 <!-- Left Pane: Message Content -->
-                <div id="card-message-pane" class="flex-1 min-w-0 postcard-divider pr-0 sm:pr-6 pb-4 sm:pb-0 space-y-4">
+                <div id="card-message-pane" class="sm:flex-1 min-w-0 postcard-divider pr-0 sm:pr-6 pb-4 sm:pb-0 flex flex-col overflow-hidden">
                     
                     <!-- Custom Message -->
-                    <div id="card-custom-message" class="hidden">
-                        <p class="font-aux-dotbitc text-gray-700 text-sm sm:text-base leading-relaxed break-words"></p>
+                    <div id="card-custom-message" class="hidden min-h-0 mb-2">
+                        <div class="custom-message-scroll">
+                            <p class="font-aux-dotbitc text-gray-700 text-sm sm:text-base leading-relaxed break-words"></p>
+                        </div>
                     </div>
                     
                     <!-- To Section -->
-                    <div class="space-y-1">
+                    <div>
                         <p class="font-aux-dotbitc text-gray-500 text-sm">TO:</p>
                         <p id="card-recipient" class="font-superhelio text-lg sm:text-xl text-pink-600 font-bold border-b border-gray-300 pb-1 break-words">
                             Someone Special
@@ -60,7 +74,7 @@
                     </div>
                     
                     <!-- From Section -->
-                    <div class="space-y-1">
+                    <div class="from-section mt-2">
                         <p class="font-aux-dotbitc text-gray-500 text-sm">FROM:</p>
                         <p id="card-sender" class="font-superhelio text-lg sm:text-xl text-cherry-600 font-bold border-b border-gray-300 pb-1 break-words">
                             You
@@ -68,8 +82,8 @@
                     </div>
                 </div>
                 
-                <!-- Right Pane: Stickers -->
-                <div id="card-addon-pane" class="flex-1 min-w-0 flex flex-col items-center justify-center">
+                <!-- Right Pane: Stickers (fixed width on desktop) -->
+                <div id="card-addon-pane" class="sm:w-[180px] sm:flex-shrink-0 flex flex-col items-center justify-center">
                     <div th:replace="~{fragments/addons/stickers :: stickers}"></div>
                 </div>
                 
@@ -78,7 +92,6 @@
             <!-- Snowflakes Overlay -->
             <div th:replace="~{fragments/addons/pixel-snowflakes :: pixel-snowflakes}"></div>
                 
-            </div>
         </div>
     </div>
 </div>

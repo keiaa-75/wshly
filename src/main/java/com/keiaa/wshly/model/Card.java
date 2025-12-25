@@ -6,11 +6,11 @@ import jakarta.validation.constraints.Size;
 
 public record Card(
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 10)
     String senderName,
     
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 10)
     String recipientName,
     
     MainMessage mainMessage,
