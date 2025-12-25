@@ -146,6 +146,27 @@ const wshly = {
         }
     },
     
+    music: {
+        audio: null,
+        isPlaying: false,
+        
+        init: function() {
+            this.audio = new Audio('/audio/bgm.mp3');
+            this.audio.loop = true;
+        },
+        
+        toggle: function() {
+            if (this.isPlaying) {
+                this.audio.pause();
+                $('#musicIcon').attr('src', '/svg/icon-play.svg');
+            } else {
+                this.audio.play();
+                $('#musicIcon').attr('src', '/svg/icon-pause.svg');
+            }
+            this.isPlaying = !this.isPlaying;
+        }
+    },
+    
     ui: {
         setFormVisibility: function(params) {
             if (params.f === '1') {
@@ -204,6 +225,7 @@ const wshly = {
         this.urlParams.populateForm();
         this.preview.init();
         this.validation.updateCharCounter();
+        this.music.init();
         
         $('input, select, textarea').on('input change', function() {
             self.preview.update();
@@ -215,6 +237,10 @@ const wshly = {
         
         $('#copyLink').on('click', function() {
             self.sharing.copyLink();
+        });
+        
+        $('#musicToggle').on('click', function() {
+            self.music.toggle();
         });
         
         this.ui.toggleForm();
