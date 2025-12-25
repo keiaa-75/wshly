@@ -181,6 +181,8 @@ const wshly = {
     
     sharing: {
         cooldown: false,
+        cachedLongUrl: null,
+        cachedShortUrl: null,
         
         generateUrl: function() {
             const params = new URLSearchParams();
@@ -230,14 +232,21 @@ const wshly = {
             
             if (shouldShorten) {
                 $btn.find('span').text('Shortening...');
-                this.shortenUrl(url)
-                    .then(function(shortUrl) {
-                        return wshly.utils.copyToClipboard(shortUrl);
-                    })
-                    .then(onCopied)
-                    .catch(function() {
-                        wshly.utils.copyToClipboard(url).then(onCopied);
-                    });
+                
+                if (url === self.cachedLongUrl && self.cachedShortUrl) {
+                    wshly.utils.copyToClipboard(self.cachedShortUrl).then(onCopied);
+                } else {
+                    this.shortenUrl(url)
+                        .then(function(shortUrl) {
+                            self.cachedLongUrl = url;
+                            self.cachedShortUrl = shortUrl;
+                            return wshly.utils.copyToClipboard(shortUrl);
+                        })
+                        .then(onCopied)
+                        .catch(function() {
+                            wshly.utils.copyToClipboard(url).then(onCopied);
+                        });
+                }
             } else {
                 wshly.utils.copyToClipboard(url).then(onCopied);
             }
