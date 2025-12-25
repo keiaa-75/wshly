@@ -1,11 +1,11 @@
 <div th:fragment="about-modal" id="about-modal" xmlns:th="http://www.thymeleaf.org"
      role="dialog" aria-modal="true" aria-labelledby="about-title"
-     class="fixed inset-0 bg-red-900/80 z-50 flex items-center justify-center hidden">
+     class="fixed inset-0 z-50 flex items-center justify-center hidden" style="background: color-mix(in srgb, var(--theme-900) 80%, transparent)">
     <div class="pixel-button !bg-white !cursor-default !max-w-xs mx-4 !p-0 overflow-hidden !block">
         <!-- Window bar -->
         <div class="flex items-center justify-between border-b-2 border-black bg-white px-3 py-2">
-            <span id="about-title" class="font-superhelio text-red-600 text-lg">wshly</span>
-            <button id="close-about" class="w-7 h-7 bg-red-500 hover:bg-red-600 flex items-center justify-center shrink-0"
+            <span id="about-title" class="font-superhelio text-lg" style="color: var(--theme-600)">wshly</span>
+            <button id="close-about" class="w-7 h-7 flex items-center justify-center shrink-0" style="background: var(--theme-500)" onmouseover="this.style.background='var(--theme-600)'" onmouseout="this.style.background='var(--theme-500)'"
                     aria-label="Close">
                 <img src="/svg/icon-close.svg" alt="" class="w-4 h-4">
             </button>
@@ -17,9 +17,12 @@
                 Crafted with warmth for ars.lima (and you!) — a kindred spirit whose light makes the season brighter.
             </p>
             <a href="https://github.com/keiaa-75/wshly" target="_blank" rel="noopener"
-               class="font-aux-dotbitc text-red-600 text-sm hover:underline">
+               class="font-aux-dotbitc text-sm hover:underline" style="color: var(--theme-600)">
                 View on GitHub
             </a>
+            <button id="theme-toggle" type="button" class="font-aux-dotbitc text-xs text-gray-500 hover:underline cursor-pointer">
+                Theme: <span id="theme-label">cherry</span>
+            </button>
         </div>
     </div>
 </div>

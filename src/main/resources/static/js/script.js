@@ -4,6 +4,26 @@ const wshly = {
         CHAR_WARNING_THRESHOLD: 20
     },
     
+    theme: {
+        current: 'cherry',
+        
+        init: function() {
+            const saved = localStorage.getItem('wshly-theme');
+            if (saved === 'snow') {
+                this.current = 'snow';
+                $('html').addClass('snow');
+                $('#theme-label').text('snow');
+            }
+        },
+        
+        toggle: function() {
+            this.current = this.current === 'cherry' ? 'snow' : 'cherry';
+            $('html').toggleClass('snow', this.current === 'snow');
+            $('#theme-label').text(this.current);
+            localStorage.setItem('wshly-theme', this.current);
+        }
+    },
+    
     utils: {
         copyToClipboard: function(text) {
             // Modern API
@@ -295,6 +315,36 @@ const wshly = {
     
     ui: {
         isCollapsed: false,
+        activeModal: null,
+        
+        openModal: function(modalId) {
+            const $modal = $(modalId);
+            $modal.removeClass('hidden');
+            this.activeModal = modalId;
+            $modal.find('button, a, [tabindex]:not([tabindex="-1"])').first().trigger('focus');
+        },
+        
+        closeModal: function(modalId) {
+            $(modalId).addClass('hidden');
+            this.activeModal = null;
+        },
+        
+        trapFocus: function(e) {
+            if (!wshly.ui.activeModal) return;
+            
+            const $modal = $(wshly.ui.activeModal);
+            const $focusable = $modal.find('button, a, [tabindex]:not([tabindex="-1"])');
+            const $first = $focusable.first();
+            const $last = $focusable.last();
+            
+            if (e.shiftKey && $(document.activeElement).is($first)) {
+                e.preventDefault();
+                $last.trigger('focus');
+            } else if (!e.shiftKey && $(document.activeElement).is($last)) {
+                e.preventDefault();
+                $first.trigger('focus');
+            }
+        },
         
         setFormVisibility: function(params) {
             if (params.f === '1') {
@@ -340,6 +390,7 @@ const wshly = {
         const self = this;
         const params = this.urlParams.parse();
         
+        this.theme.init();
         this.urlParams.populateForm();
         this.preview.init();
         this.validation.updateCharCounter();
@@ -377,17 +428,21 @@ const wshly = {
         });
         
         $('#about-btn').on('click', function() {
-            $('#about-modal').removeClass('hidden');
+            self.ui.openModal('#about-modal');
         });
         
         $('#close-about').on('click', function() {
-            $('#about-modal').addClass('hidden');
+            self.ui.closeModal('#about-modal');
         });
         
         $('#about-modal').on('click', function(e) {
             if (e.target === this) {
-                $('#about-modal').addClass('hidden');
+                self.ui.closeModal('#about-modal');
             }
+        });
+        
+        $('#theme-toggle').on('click', function() {
+            self.theme.toggle();
         });
         
         this.ui.toggleForm();
@@ -395,23 +450,26 @@ const wshly = {
         
         // Show error modal if error param exists
         if (params.error) {
-            $('#error-modal').removeClass('hidden');
+            this.ui.openModal('#error-modal');
         }
         
         $('#close-error').on('click', function() {
-            $('#error-modal').addClass('hidden');
+            self.ui.closeModal('#error-modal');
         });
         
         $('#error-modal').on('click', function(e) {
             if (e.target === this) {
-                $('#error-modal').addClass('hidden');
+                self.ui.closeModal('#error-modal');
             }
         });
         
-        // Keyboard: Escape closes modals, Enter/Space on sound overlay
+        // Keyboard: Escape closes modals, Tab traps focus
         $(document).on('keydown', function(e) {
-            if (e.key === 'Escape') {
-                $('#about-modal, #error-modal').addClass('hidden');
+            if (e.key === 'Escape' && self.ui.activeModal) {
+                self.ui.closeModal(self.ui.activeModal);
+            }
+            if (e.key === 'Tab' && self.ui.activeModal) {
+                self.ui.trapFocus(e);
             }
         });
         

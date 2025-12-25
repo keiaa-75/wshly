@@ -2,20 +2,22 @@
     <style>
         .postcard {
             --border-stripe-size: 12px;
-            --border-color-primary: #dc2626;
-            --border-color-secondary: #fef2f2;
             background: 
                 repeating-linear-gradient(
                     135deg,
-                    var(--border-color-primary) 0,
-                    var(--border-color-primary) var(--border-stripe-size),
-                    var(--border-color-secondary) var(--border-stripe-size),
-                    var(--border-color-secondary) calc(var(--border-stripe-size) * 2)
+                    var(--theme-600) 0,
+                    var(--theme-600) var(--border-stripe-size),
+                    var(--theme-50) var(--border-stripe-size),
+                    var(--theme-50) calc(var(--border-stripe-size) * 2)
                 );
         }
         
         .postcard-inner {
             background: #fffbf5;
+        }
+        
+        .pixel-shadow {
+            text-shadow: 2px 2px 0px color-mix(in srgb, var(--theme-600) 30%, transparent);
         }
     </style>
     
@@ -24,7 +26,7 @@
             
             <!-- Header: Main Message -->
             <header class="text-center mb-4 md:mb-6 pb-3 border-b-2 border-dashed border-gray-200 shrink-0">
-                <h2 id="card-header" class="font-superhelio text-xl md:text-2xl text-cherry-600 pixel-shadow font-bold">
+                <h2 id="card-header" class="font-superhelio text-xl md:text-2xl pixel-shadow font-bold" style="color: var(--theme-600)">
                     Merry Christmas!
                 </h2>
             </header>
@@ -45,7 +47,7 @@
                     <!-- To Section -->
                     <div>
                         <p class="font-aux-dotbitc text-gray-500 text-sm">TO:</p>
-                        <p id="card-recipient" class="font-superhelio text-lg md:text-xl text-pink-600 font-bold border-b border-gray-300 pb-1 break-words">
+                        <p id="card-recipient" class="font-superhelio text-lg md:text-xl font-bold border-b border-gray-300 pb-1 break-words" style="color: var(--theme-400)">
                             Someone Special
                         </p>
                     </div>
@@ -53,7 +55,7 @@
                     <!-- From Section -->
                     <div class="md:mt-auto mt-2">
                         <p class="font-aux-dotbitc text-gray-500 text-sm">FROM:</p>
-                        <p id="card-sender" class="font-superhelio text-lg md:text-xl text-cherry-600 font-bold border-b border-gray-300 pb-1 break-words">
+                        <p id="card-sender" class="font-superhelio text-lg md:text-xl font-bold border-b border-gray-300 pb-1 break-words" style="color: var(--theme-600)">
                             You
                         </p>
                     </div>

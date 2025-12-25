@@ -2,7 +2,7 @@
 <style>
 .pixel-button {
     width: 100%;
-    background: #f87171;
+    background: var(--theme-400);
     border: 3px solid #000;
     padding: 12px 24px;
     color: white;
@@ -21,24 +21,24 @@
     box-shadow: inset 2px 2px 0 rgba(255,255,255,0.3), inset -2px -2px 0 rgba(0,0,0,0.3);
 }
 .pixel-button:hover {
-    background: #ef4444;
+    background: var(--theme-500);
     box-shadow: inset 2px 2px 0 rgba(255,255,255,0.4), inset -2px -2px 0 rgba(0,0,0,0.2);
 }
 .pixel-button:active {
-    background: #dc2626;
+    background: var(--theme-600);
     box-shadow: inset -2px -2px 0 rgba(255,255,255,0.2), inset 2px 2px 0 rgba(0,0,0,0.4);
     transform: translateY(1px);
 }
 .pixel-button:focus {
-    background: #dc2626;
-    border-color: #991b1b;
+    background: var(--theme-600);
+    border-color: var(--theme-800);
 }
 .pixel-button.copied {
     animation: flash 0.2s ease;
 }
 @keyframes flash {
-    0%, 100% { background: #f87171; }
-    50% { background: #f87171; }
+    0%, 100% { background: var(--theme-400); }
+    50% { background: var(--theme-400); }
 }
 </style>
 <button th:id="${id}"

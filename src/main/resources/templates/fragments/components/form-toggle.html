@@ -1,8 +1,8 @@
-<button th:fragment="toggle" xmlns:th="http://www.thymeleaf.org" id="form-toggle" aria-label="Toggle form" aria-expanded="true" class="absolute -top-8 left-1/2 transform -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:left-full md:translate-x-0 bg-white border-2 border-pink-200 border-b-0 md:border-b-2 md:border-l-0 rounded-t-lg md:rounded-l-none md:rounded-r-lg px-3 py-2 md:px-2 md:py-3 hover:bg-pink-50 transition-colors z-30">
+<button th:fragment="toggle" xmlns:th="http://www.thymeleaf.org" id="form-toggle" aria-label="Toggle form" aria-expanded="true" class="absolute -top-8 left-1/2 transform -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:left-full md:translate-x-0 bg-white border-2 border-b-0 md:border-b-2 md:border-l-0 rounded-t-lg md:rounded-l-none md:rounded-r-lg px-3 py-2 md:px-2 md:py-3 transition-colors z-30" style="border-color: var(--theme-200)" onmouseover="this.style.background='var(--theme-50)'" onmouseout="this.style.background='white'">
     <div class="flex items-center justify-center">
-        <svg id="toggle-icon" class="w-4 h-4 text-cherry-600 transition-transform duration-300 md:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <svg id="toggle-icon" class="w-4 h-4 transition-transform duration-300 md:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--theme-600)">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
         </svg>
     </div>
-    <div class="absolute inset-1 border border-dotted border-pink-300 rounded pointer-events-none"></div>
+    <div class="absolute inset-1 border border-dotted rounded pointer-events-none" style="border-color: var(--theme-300)"></div>
 </button>
