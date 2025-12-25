@@ -1,19 +1,10 @@
 const wshly = {
     config: {
         MAX_CHARS: 150,
-        CHAR_WARNING_THRESHOLD: 20,
-        RESIZE_DEBOUNCE_MS: 150
+        CHAR_WARNING_THRESHOLD: 20
     },
     
     utils: {
-        debounce: function(fn, ms) {
-            let timeout;
-            return function(...args) {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => fn.apply(this, args), ms);
-            };
-        },
-        
         copyToClipboard: function(text) {
             // Modern API
             if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -106,36 +97,10 @@ const wshly = {
             } else {
                 $customMsgContainer.addClass('hidden');
             }
-            
-            // Check layout mode
-            this.checkDesktopMode();
-        },
-        
-        checkDesktopMode: function() {
-            const $container = $('#postcard-container');
-            const $messagePane = $('#card-message-pane');
-            const $addonPane = $('#card-addon-pane');
-            
-            // Detect if panes are side-by-side (horizontal layout)
-            const messageTop = $messagePane.offset()?.top || 0;
-            const addonTop = $addonPane.offset()?.top || 0;
-            const isHorizontal = Math.abs(messageTop - addonTop) < 10;
-            
-            if (isHorizontal) {
-                $container.addClass('desktop-mode');
-            } else {
-                $container.removeClass('desktop-mode');
-            }
         },
         
         init: function() {
             this.update();
-            
-            // Re-check on resize (debounced)
-            $(window).on('resize', wshly.utils.debounce(
-                () => this.checkDesktopMode(), 
-                wshly.config.RESIZE_DEBOUNCE_MS
-            ));
         }
     },
     
@@ -258,11 +223,15 @@ const wshly = {
             if (this.isCollapsed) {
                 $formPane.addClass('translate-y-full md:translate-y-0 md:-translate-x-full');
                 $toggleIcon.addClass('rotate-180').removeClass('md:rotate-90').addClass('md:-rotate-90');
-                $previewArea.removeClass('md:left-80').addClass('md:left-0');
+                $previewArea
+                    .removeClass('md:left-80 bottom-[420px]')
+                    .addClass('md:left-0 bottom-0');
             } else {
                 $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
                 $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
-                $previewArea.removeClass('md:left-0').addClass('md:left-80');
+                $previewArea
+                    .removeClass('md:left-0 bottom-0')
+                    .addClass('md:left-80 bottom-[420px]');
             }
         },
         

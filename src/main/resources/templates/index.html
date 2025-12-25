@@ -14,14 +14,14 @@
     <div class="relative min-h-screen overflow-hidden">
         
         <!-- Card Preview - Full screen, always centered -->
-        <div class="absolute inset-0 md:left-80 flex items-center justify-center p-4 transition-all duration-300" id="preview-area">
+        <div class="absolute inset-0 bottom-[420px] md:bottom-0 md:left-80 flex items-center justify-center p-4 transition-all duration-300" id="preview-area">
             <div class="w-full max-w-sm md:max-w-lg">
                 <div th:replace="~{fragments/components/card-display :: card}"></div>
             </div>
         </div>
         
         <!-- Settings Form - Slides in from bottom (mobile) / left (desktop) -->
-        <div id="form-pane" class="fixed bottom-0 left-0 md:top-0 w-full md:w-80 p-4 bg-white border-t-2 md:border-t-0 md:border-r-2 border-pink-200 transition-transform duration-300 ease-in-out z-20">
+        <div id="form-pane" class="fixed bottom-0 left-0 md:top-0 w-full md:w-80 h-[420px] md:h-full p-4 bg-white border-t-2 md:border-t-0 md:border-r-2 border-pink-200 transition-transform duration-300 ease-in-out z-20 overflow-y-auto">
             <div th:replace="~{fragments/components/form-toggle :: toggle}"></div>
             <div th:replace="~{fragments/components/card-form :: form(${messages})}"></div>
         </div>

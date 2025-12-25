@@ -17,33 +17,10 @@
         .postcard-inner {
             background: #fffbf5;
         }
-        
-        .postcard-divider {
-            border-bottom: 2px dashed #e5e7eb;
-        }
-        
-        /* Desktop mode - applied via JS when horizontal layout detected */
-        .desktop-mode .postcard-divider {
-            border-bottom: none;
-            border-right: 2px dashed #e5e7eb;
-        }
-        
-        .desktop-mode .postcard-inner {
-            height: 320px;
-        }
-        
-        .desktop-mode .custom-message-scroll {
-            max-height: 78px;
-            overflow-y: auto;
-        }
-        
-        .desktop-mode .from-section {
-            margin-top: auto;
-        }
     </style>
     
     <div id="postcard-container" class="postcard p-3 sm:p-4 rounded-lg shadow-xl">
-        <div class="postcard-inner relative rounded p-4 sm:p-6 flex flex-col">
+        <div class="postcard-inner relative rounded p-4 sm:p-6 flex flex-col sm:h-80">
             
             <!-- Header: Main Message -->
             <header class="text-center mb-4 sm:mb-6 pb-3 border-b-2 border-dashed border-gray-200 shrink-0">
@@ -56,11 +33,11 @@
             <div id="card-content" class="flex flex-col sm:flex-row gap-4 sm:gap-6 flex-1 min-h-0 overflow-hidden">
                 
                 <!-- Left Pane: Message Content -->
-                <div id="card-message-pane" class="sm:flex-1 min-w-0 postcard-divider pr-0 sm:pr-6 pb-4 sm:pb-0 flex flex-col overflow-hidden">
+                <div id="card-message-pane" class="sm:flex-1 min-w-0 border-b-2 sm:border-b-0 sm:border-r-2 border-dashed border-gray-200 pr-0 sm:pr-6 pb-4 sm:pb-0 flex flex-col overflow-hidden">
                     
                     <!-- Custom Message -->
                     <div id="card-custom-message" class="hidden min-h-0 mb-2">
-                        <div class="custom-message-scroll">
+                        <div class="sm:max-h-[78px] sm:overflow-y-auto">
                             <p class="font-aux-dotbitc text-gray-700 text-sm sm:text-base leading-relaxed break-words"></p>
                         </div>
                     </div>
@@ -74,7 +51,7 @@
                     </div>
                     
                     <!-- From Section -->
-                    <div class="from-section mt-2">
+                    <div class="sm:mt-auto mt-2">
                         <p class="font-aux-dotbitc text-gray-500 text-sm">FROM:</p>
                         <p id="card-sender" class="font-superhelio text-lg sm:text-xl text-cherry-600 font-bold border-b border-gray-300 pb-1 break-words">
                             You
