@@ -1,9 +1,10 @@
 <div th:fragment="about-modal" id="about-modal" xmlns:th="http://www.thymeleaf.org"
+     role="dialog" aria-modal="true" aria-labelledby="about-title"
      class="fixed inset-0 bg-red-900/80 z-50 flex items-center justify-center hidden">
     <div class="pixel-button !bg-white !cursor-default !max-w-xs mx-4 !p-0 overflow-hidden !block">
         <!-- Window bar -->
         <div class="flex items-center justify-between border-b-2 border-black bg-white px-3 py-2">
-            <span class="font-superhelio text-red-600 text-lg">wshly</span>
+            <span id="about-title" class="font-superhelio text-red-600 text-lg">wshly</span>
             <button id="close-about" class="w-7 h-7 bg-red-500 hover:bg-red-600 flex items-center justify-center shrink-0"
                     aria-label="Close">
                 <img src="/svg/icon-close.svg" alt="" class="w-4 h-4">

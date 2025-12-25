@@ -104,17 +104,19 @@
 </style>
 
 <div class="pixel-dropdown" th:data-name="${name}">
-    <button type="button" class="pixel-dropdown-button font-superhelio">
+    <button type="button" class="pixel-dropdown-button font-superhelio" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="mainMessage-label">
         <span class="dropdown-text" th:text="${selectedValue != null ? selectedValue.displayText : 'Select message...'}">Select message...</span>
-        <div class="pixel-dropdown-arrow"></div>
+        <div class="pixel-dropdown-arrow" aria-hidden="true"></div>
     </button>
     
-    <div class="pixel-dropdown-menu">
+    <div class="pixel-dropdown-menu" role="listbox">
         <div th:each="option : ${options}" 
              class="pixel-dropdown-option font-superhelio"
+             role="option"
              th:data-value="${option}"
              th:text="${option.displayText}"
-             th:classappend="${selectedValue != null && selectedValue == option} ? 'selected' : ''">
+             th:classappend="${selectedValue != null && selectedValue == option} ? 'selected' : ''"
+             th:attr="aria-selected=${selectedValue != null && selectedValue == option}">
         </div>
     </div>
     
@@ -142,9 +144,10 @@ $(document).ready(function() {
         
         // Close all other dropdowns
         $('.pixel-dropdown-button.open').not($button).removeClass('open')
+            .attr('aria-expanded', 'false')
             .siblings('.pixel-dropdown-menu').removeClass('open');
         
-        $button.toggleClass('open', !isOpen);
+        $button.toggleClass('open', !isOpen).attr('aria-expanded', !isOpen);
         $menu.toggleClass('open', !isOpen);
     });
     
@@ -153,20 +156,20 @@ $(document).ready(function() {
         const value = $(this).data('value');
         const text = $(this).text();
         
-        $options.removeClass('selected');
-        $(this).addClass('selected');
+        $options.removeClass('selected').attr('aria-selected', 'false');
+        $(this).addClass('selected').attr('aria-selected', 'true');
         
         $dropdownText.text(text);
         $hiddenInput.val(value).trigger('change');
         
-        $button.removeClass('open');
+        $button.removeClass('open').attr('aria-expanded', 'false');
         $menu.removeClass('open');
     });
     
     // Close dropdown when clicking outside
     $(document).on('click', function(e) {
         if (!$dropdown.is(e.target) && !$dropdown.has(e.target).length) {
-            $button.removeClass('open');
+            $button.removeClass('open').attr('aria-expanded', 'false');
             $menu.removeClass('open');
         }
     });

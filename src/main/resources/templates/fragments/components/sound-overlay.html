@@ -1,6 +1,7 @@
 <div th:fragment="sound-overlay" id="sound-overlay" xmlns:th="http://www.thymeleaf.org"
+     role="dialog" aria-modal="true" aria-label="Enable sound"
      class="fixed inset-0 bg-red-900/80 z-50 flex items-center justify-center hidden">
-    <button id="enable-sound" class="pixel-button !bg-white !text-red-600 flex-col gap-2 !py-6 !px-8">
+    <button id="enable-sound" class="pixel-button !bg-white !text-red-600 flex-col gap-2 !py-6 !px-8" aria-label="Tap to play background music">
         <img src="/svg/icon-play.svg" alt="" class="w-10 h-10 invert-[.4] sepia saturate-[10] hue-rotate-[330deg]">
         <span class="font-superhelio text-lg">TAP TO PLAY</span>
     </button>
