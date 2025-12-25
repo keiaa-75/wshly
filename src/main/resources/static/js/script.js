@@ -257,6 +257,16 @@ const wshly = {
             self.music.enableFromOverlay();
         });
         
+        $('#about-btn').on('click', function() {
+            $('#about-modal').removeClass('hidden');
+        });
+        
+        $('#close-about, #about-modal').on('click', function(e) {
+            if (e.target === this) {
+                $('#about-modal').addClass('hidden');
+            }
+        });
+        
         this.ui.toggleForm();
         this.ui.setFormVisibility(params);
     }
