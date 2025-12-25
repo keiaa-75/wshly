@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title ?: 'wshly - Say Your Wish'}">wshly</title>
+    <meta name="description" content="Create cute, quirky holiday cards and share them with your loved ones.">
+    <meta name="theme-color" content="#f87171">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="wshly - Say Your Wish">
+    <meta property="og:description" content="Create cute, quirky holiday cards and share them with your loved ones.">
+    <meta property="og:image" content="/favicon.svg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="wshly - Say Your Wish">
+    <meta name="twitter:description" content="Create cute, quirky holiday cards and share them with your loved ones.">
+    
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script th:replace="~{fragments/config/tailwind-config :: tailwind-config}"></script>
