@@ -199,12 +199,27 @@ const wshly = {
             return `${window.location.origin}/card?${params.toString()}`;
         },
         
+        shortenUrl: function(url) {
+            return $.ajax({
+                url: 'https://tinyurl.com/api-create.php',
+                method: 'GET',
+                data: { url: url },
+                dataType: 'text'
+            });
+        },
+        
         copyLink: function() {
             const url = this.generateUrl();
             const $btn = $('#copyLink');
             const originalText = $btn.find('span').text();
+            const self = this;
             
-            wshly.utils.copyToClipboard(url)
+            $btn.find('span').text('Shortening...');
+            
+            this.shortenUrl(url)
+                .then(function(shortUrl) {
+                    return wshly.utils.copyToClipboard(shortUrl);
+                })
                 .then(function() {
                     $btn.addClass('copied').find('span').text('Copied! <3');
                     setTimeout(function() {
@@ -212,10 +227,19 @@ const wshly = {
                     }, 2000);
                 })
                 .catch(function() {
-                    $btn.find('span').text('Failed :(');
-                    setTimeout(function() {
-                        $btn.find('span').text(originalText);
-                    }, 2000);
+                    // Fallback to long URL if shortening fails
+                    wshly.utils.copyToClipboard(url)
+                        .then(function() {
+                            $btn.addClass('copied').find('span').text('Copied! <3');
+                        })
+                        .catch(function() {
+                            $btn.find('span').text('Failed :(');
+                        })
+                        .always(function() {
+                            setTimeout(function() {
+                                $btn.removeClass('copied').find('span').text(originalText);
+                            }, 2000);
+                        });
                 });
         }
     },
