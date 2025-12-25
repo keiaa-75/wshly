@@ -180,6 +180,8 @@ const wshly = {
     },
     
     sharing: {
+        cooldown: false,
+        
         generateUrl: function() {
             const params = new URLSearchParams();
             params.set('senderName', $('input[name="senderName"]').val());
@@ -209,38 +211,45 @@ const wshly = {
         },
         
         copyLink: function() {
+            if (this.cooldown) return;
+            
+            const self = this;
             const url = this.generateUrl();
             const $btn = $('#copyLink');
             const originalText = $btn.find('span').text();
-            const self = this;
+            const shouldShorten = $('#shorten-toggle').attr('aria-checked') === 'true';
             
-            $btn.find('span').text('Shortening...');
+            const onCopied = function() {
+                self.cooldown = true;
+                $btn.addClass('copied').find('span').text('Copied! <3');
+                setTimeout(function() {
+                    self.cooldown = false;
+                    $btn.removeClass('copied').find('span').text(originalText);
+                }, 5000);
+            };
             
-            this.shortenUrl(url)
-                .then(function(shortUrl) {
-                    return wshly.utils.copyToClipboard(shortUrl);
-                })
-                .then(function() {
-                    $btn.addClass('copied').find('span').text('Copied! <3');
-                    setTimeout(function() {
-                        $btn.removeClass('copied').find('span').text(originalText);
-                    }, 2000);
-                })
-                .catch(function() {
-                    // Fallback to long URL if shortening fails
-                    wshly.utils.copyToClipboard(url)
-                        .then(function() {
-                            $btn.addClass('copied').find('span').text('Copied! <3');
-                        })
-                        .catch(function() {
-                            $btn.find('span').text('Failed :(');
-                        })
-                        .always(function() {
-                            setTimeout(function() {
-                                $btn.removeClass('copied').find('span').text(originalText);
-                            }, 2000);
-                        });
-                });
+            if (shouldShorten) {
+                $btn.find('span').text('Shortening...');
+                this.shortenUrl(url)
+                    .then(function(shortUrl) {
+                        return wshly.utils.copyToClipboard(shortUrl);
+                    })
+                    .then(onCopied)
+                    .catch(function() {
+                        wshly.utils.copyToClipboard(url).then(onCopied);
+                    });
+            } else {
+                wshly.utils.copyToClipboard(url).then(onCopied);
+            }
+        },
+        
+        toggleShorten: function() {
+            const $toggle = $('#shorten-toggle');
+            const isChecked = $toggle.attr('aria-checked') === 'true';
+            const newState = !isChecked;
+            
+            $toggle.attr('aria-checked', newState);
+            $('#shorten-icon').attr('src', '/svg/icon-checkbox-' + (newState ? 'checked' : 'unchecked') + '.svg');
         }
     },
     
@@ -337,6 +346,17 @@ const wshly = {
         
         $('#copyLink').on('click', function() {
             self.sharing.copyLink();
+        });
+        
+        $('#shorten-toggle, #shorten-label').on('click', function() {
+            self.sharing.toggleShorten();
+        });
+        
+        $('#shorten-toggle').on('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                self.sharing.toggleShorten();
+            }
         });
         
         $('#musicToggle').on('click', function() {
