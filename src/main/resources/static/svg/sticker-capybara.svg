@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <path d="M4 0L48 0L48 2L50 2L50 4L52 4L52 48L50 48L50 50L48 50L48 52L4 52L4 50L2 50L2 48L0 48L0 4L2 4L2 2L4 2L4 0L4 0Z" fill="#D9B9A3" />
+    <path d="M0 0L4 0L4 2L0 2L0 0ZM8 0L12 0L12 2L8 2L8 0ZM16 0L24 0L24 2L16 2L16 0ZM28 0L32 0L32 2L28 2L28 0ZM36 0L40 0L40 2L36 2L36 0Z" fill="#D28851" transform="translate(6 4)" />
+    <path d="M0 0L2 0L2 4L0 4L0 0ZM0 8L2 8L2 12L0 12L0 8ZM0 16L2 16L2 24L0 24L0 16ZM0 28L2 28L2 32L0 32L0 28ZM0 36L2 36L2 40L0 40L0 36Z" fill="#D28851" transform="translate(48 6)" />
+    <path d="M36 0L40 0L40 2L36 2L36 0ZM28 0L32 0L32 2L28 2L28 0ZM16 0L24 0L24 2L16 2L16 0ZM8 0L12 0L12 2L8 2L8 0ZM0 0L4 0L4 2L0 2L0 0Z" fill="#D28851" transform="translate(6 48)" />
+    <path d="M0 36L2 36L2 40L0 40L0 36ZM0 28L2 28L2 32L0 32L0 28ZM0 16L2 16L2 24L0 24L0 16ZM0 8L2 8L2 12L0 12L0 8ZM0 0L2 0L2 4L0 4L0 0Z" fill="#D28851" transform="translate(2 6)" />
+    <rect width="36" height="6" transform="translate(8 38)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(18 12)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(21 12)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(15 15)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(15 18)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(18 21)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(18 24)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(15 24)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(12 24)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(9 27)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(6 30)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(6 33)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(6 36)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(9 39)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(12 39)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(15 39)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(30 39)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(30 36)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(27 36)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(24 36)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(21 36)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(12 36)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(9 36)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(9 33)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(12 33)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(15 33)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(9 30)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(12 30)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(18 15)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(21 15)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(21 24)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(24 18)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(12 27)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(27 39)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(18 36)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(15 36)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(18 33)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(18 30)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(15 30)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(15 30)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(15 27)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(18 39)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(21 39)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(24 39)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(33 39)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(33 36)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(33 33)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(36 30)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(39 30)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(42 30)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(42 27)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(42 24)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(42 21)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(42 18)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(39 15)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(36 15)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(33 15)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(30 15)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(27 15)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(24 15)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(27 21)" />
+    <rect width="3" height="3" fill="#55321B" fill-rule="evenodd" transform="translate(30 21)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(27 18)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(30 18)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(33 18)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(33 21)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(33 24)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(36 24)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(36 27)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(39 27)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(33 27)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(33 30)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(30 30)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(30 33)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(27 33)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(24 33)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(21 33)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(27 30)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(24 30)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(21 30)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(24 27)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(21 27)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(18 27)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(30 27)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(27 27)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(24 24)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(30 24)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(27 24)" />
+    <rect width="3" height="3" fill="#CE9C7A" fill-rule="evenodd" transform="translate(24 21)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(18 18)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(21 18)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(21 21)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(36 18)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(39 18)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(36 21)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(39 21)" />
+    <rect width="3" height="3" fill="#C76E2D" fill-rule="evenodd" transform="translate(39 24)" />
+  </g>
+</svg>
