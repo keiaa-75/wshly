@@ -19,48 +19,48 @@
         }
     </style>
     
-    <div id="postcard-container" class="postcard p-3 sm:p-4 rounded-lg shadow-xl">
-        <div class="postcard-inner relative rounded p-4 sm:p-6 flex flex-col sm:h-80">
+    <div id="postcard-container" class="postcard p-3 md:p-4 rounded-lg shadow-xl">
+        <div class="postcard-inner relative rounded p-4 md:p-6 flex flex-col md:h-80">
             
             <!-- Header: Main Message -->
-            <header class="text-center mb-4 sm:mb-6 pb-3 border-b-2 border-dashed border-gray-200 shrink-0">
-                <h2 id="card-header" class="font-superhelio text-xl sm:text-2xl text-cherry-600 pixel-shadow font-bold">
+            <header class="text-center mb-4 md:mb-6 pb-3 border-b-2 border-dashed border-gray-200 shrink-0">
+                <h2 id="card-header" class="font-superhelio text-xl md:text-2xl text-cherry-600 pixel-shadow font-bold">
                     Merry Christmas!
                 </h2>
             </header>
             
             <!-- Two-Pane Content -->
-            <div id="card-content" class="flex flex-col sm:flex-row gap-4 sm:gap-6 flex-1 min-h-0 overflow-hidden">
+            <div id="card-content" class="flex flex-col md:flex-row gap-4 md:gap-6 flex-1 min-h-0 overflow-hidden">
                 
                 <!-- Left Pane: Message Content -->
-                <div id="card-message-pane" class="sm:flex-1 min-w-0 border-b-2 sm:border-b-0 sm:border-r-2 border-dashed border-gray-200 pr-0 sm:pr-6 pb-4 sm:pb-0 flex flex-col overflow-hidden">
+                <div id="card-message-pane" class="md:flex-1 min-w-0 border-b-2 md:border-b-0 md:border-r-2 border-dashed border-gray-200 pr-0 md:pr-6 pb-4 md:pb-0 flex flex-col overflow-hidden">
                     
                     <!-- Custom Message -->
                     <div id="card-custom-message" class="hidden min-h-0 mb-2">
-                        <div class="sm:max-h-[78px] sm:overflow-y-auto">
-                            <p class="font-aux-dotbitc text-gray-700 text-sm sm:text-base leading-relaxed break-words"></p>
+                        <div class="md:max-h-[78px] md:overflow-y-auto">
+                            <p class="font-aux-dotbitc text-gray-700 text-sm md:text-base leading-relaxed break-words"></p>
                         </div>
                     </div>
                     
                     <!-- To Section -->
                     <div>
                         <p class="font-aux-dotbitc text-gray-500 text-sm">TO:</p>
-                        <p id="card-recipient" class="font-superhelio text-lg sm:text-xl text-pink-600 font-bold border-b border-gray-300 pb-1 break-words">
+                        <p id="card-recipient" class="font-superhelio text-lg md:text-xl text-pink-600 font-bold border-b border-gray-300 pb-1 break-words">
                             Someone Special
                         </p>
                     </div>
                     
                     <!-- From Section -->
-                    <div class="sm:mt-auto mt-2">
+                    <div class="md:mt-auto mt-2">
                         <p class="font-aux-dotbitc text-gray-500 text-sm">FROM:</p>
-                        <p id="card-sender" class="font-superhelio text-lg sm:text-xl text-cherry-600 font-bold border-b border-gray-300 pb-1 break-words">
+                        <p id="card-sender" class="font-superhelio text-lg md:text-xl text-cherry-600 font-bold border-b border-gray-300 pb-1 break-words">
                             You
                         </p>
                     </div>
                 </div>
                 
                 <!-- Right Pane: Stickers (fixed width on desktop) -->
-                <div id="card-addon-pane" class="sm:w-[180px] sm:flex-shrink-0 flex flex-col items-center justify-center">
+                <div id="card-addon-pane" class="md:w-[180px] md:flex-shrink-0 flex flex-col items-center justify-center">
                     <div th:replace="~{fragments/addons/stickers :: stickers}"></div>
                 </div>
                 
