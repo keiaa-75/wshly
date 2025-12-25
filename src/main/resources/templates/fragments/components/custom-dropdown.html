@@ -36,6 +36,11 @@
     box-shadow: inset -1px -1px 0 rgba(255,255,255,0.5), inset 1px 1px 0 rgba(0,0,0,0.3);
 }
 
+.pixel-dropdown-button:focus {
+    background: #fdf2f8;
+    border-color: #f472b6;
+}
+
 .pixel-dropdown-arrow {
     width: 0;
     height: 0;
@@ -99,6 +104,16 @@
 
 .pixel-dropdown-option.selected {
     background: #f87171;
+    color: white;
+}
+
+.pixel-dropdown-option.focused {
+    background: #fce7f3;
+    color: #be185d;
+}
+
+.pixel-dropdown-option.selected.focused {
+    background: #ef4444;
     color: white;
 }
 </style>
@@ -171,6 +186,42 @@ $(document).ready(function() {
         if (!$dropdown.is(e.target) && !$dropdown.has(e.target).length) {
             $button.removeClass('open').attr('aria-expanded', 'false');
             $menu.removeClass('open');
+        }
+    });
+    
+    // Keyboard navigation
+    let focusedIndex = -1;
+    
+    function setFocusedOption(index) {
+        $options.removeClass('focused');
+        focusedIndex = Math.max(0, Math.min(index, $options.length - 1));
+        const $focused = $options.eq(focusedIndex).addClass('focused');
+        $focused[0].scrollIntoView({ block: 'nearest' });
+    }
+    
+    $button.on('keydown', function(e) {
+        const isOpen = $button.hasClass('open');
+        
+        if ((e.key === 'Enter' || e.key === ' ') && isOpen && focusedIndex >= 0) {
+            e.preventDefault();
+            $options.eq(focusedIndex).trigger('click');
+        } else if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (!isOpen) {
+                $button.addClass('open').attr('aria-expanded', 'true');
+                $menu.addClass('open');
+                focusedIndex = $options.index($options.filter('.selected'));
+                setFocusedOption(focusedIndex >= 0 ? focusedIndex : 0);
+            } else if (e.key === 'ArrowDown') {
+                setFocusedOption(focusedIndex + 1);
+            }
+        } else if (e.key === 'ArrowUp' && isOpen) {
+            e.preventDefault();
+            setFocusedOption(focusedIndex - 1);
+        } else if (e.key === 'Escape' && isOpen) {
+            $button.removeClass('open').attr('aria-expanded', 'false');
+            $menu.removeClass('open');
+            $options.removeClass('focused');
         }
     });
 });

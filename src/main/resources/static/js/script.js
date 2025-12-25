@@ -353,6 +353,20 @@ const wshly = {
                 $('#error-modal').addClass('hidden');
             }
         });
+        
+        // Keyboard: Escape closes modals, Enter/Space on sound overlay
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape') {
+                $('#about-modal, #error-modal').addClass('hidden');
+            }
+        });
+        
+        $('#enable-sound').on('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                self.music.enableFromOverlay();
+            }
+        });
     }
 };
 
