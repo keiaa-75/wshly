@@ -261,7 +261,11 @@ const wshly = {
             $('#about-modal').removeClass('hidden');
         });
         
-        $('#close-about, #about-modal').on('click', function(e) {
+        $('#close-about').on('click', function() {
+            $('#about-modal').addClass('hidden');
+        });
+        
+        $('#about-modal').on('click', function(e) {
             if (e.target === this) {
                 $('#about-modal').addClass('hidden');
             }
