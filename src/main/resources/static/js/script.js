@@ -1,7 +1,41 @@
 const wshly = {
     config: {
         MAX_CHARS: 150,
-        CHAR_WARNING_THRESHOLD: 20
+        CHAR_WARNING_THRESHOLD: 20,
+        RESIZE_DEBOUNCE_MS: 150
+    },
+    
+    utils: {
+        debounce: function(fn, ms) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => fn.apply(this, args), ms);
+            };
+        },
+        
+        copyToClipboard: function(text) {
+            // Modern API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                return navigator.clipboard.writeText(text);
+            }
+            // Fallback for older browsers / non-HTTPS
+            return $.Deferred(function(deferred) {
+                const $temp = $('<textarea>').val(text).css({
+                    position: 'fixed',
+                    left: '-9999px'
+                }).appendTo('body').trigger('select');
+                
+                try {
+                    document.execCommand('copy');
+                    deferred.resolve();
+                } catch (e) {
+                    deferred.reject(e);
+                } finally {
+                    $temp.remove();
+                }
+            }).promise();
+        }
     },
     
     urlParams: {
@@ -97,8 +131,11 @@ const wshly = {
         init: function() {
             this.update();
             
-            // Re-check on resize
-            $(window).on('resize', () => this.checkDesktopMode());
+            // Re-check on resize (debounced)
+            $(window).on('resize', wshly.utils.debounce(
+                () => this.checkDesktopMode(), 
+                wshly.config.RESIZE_DEBOUNCE_MS
+            ));
         }
     },
     
@@ -155,19 +192,21 @@ const wshly = {
         copyLink: function() {
             const url = this.generateUrl();
             const $btn = $('#copyLink');
+            const originalText = $btn.find('span').text();
             
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(url).then(() => {
-                    const originalText = $btn.find('span').text();
-                    $btn.addClass('copied');
-                    $btn.find('span').text('Copied! <3');
-                    
-                    setTimeout(() => {
-                        $btn.removeClass('copied');
+            wshly.utils.copyToClipboard(url)
+                .then(function() {
+                    $btn.addClass('copied').find('span').text('Copied! <3');
+                    setTimeout(function() {
+                        $btn.removeClass('copied').find('span').text(originalText);
+                    }, 2000);
+                })
+                .catch(function() {
+                    $btn.find('span').text('Failed :(');
+                    setTimeout(function() {
                         $btn.find('span').text(originalText);
                     }, 2000);
                 });
-            }
         }
     },
     
@@ -178,6 +217,7 @@ const wshly = {
         init: function(autoplay) {
             this.audio = new Audio('/audio/bgm.mp3');
             this.audio.loop = true;
+            this.audio.preload = 'metadata';
             if (autoplay === '1') {
                 $('#sound-overlay').removeClass('hidden');
             }
@@ -201,53 +241,38 @@ const wshly = {
     },
     
     ui: {
+        isCollapsed: false,
+        
         setFormVisibility: function(params) {
             if (params.f === '1') {
-                const $formPane = $('#form-pane');
-                const $toggleIcon = $('#toggle-icon');
-                const $previewArea = $('#preview-area');
-                
+                this.isCollapsed = true;
+                this.applyCollapseState();
+            }
+        },
+        
+        applyCollapseState: function() {
+            const $formPane = $('#form-pane');
+            const $toggleIcon = $('#toggle-icon');
+            const $previewArea = $('#preview-area');
+            
+            if (this.isCollapsed) {
                 $formPane.addClass('translate-y-full md:translate-y-0 md:-translate-x-full');
                 $toggleIcon.addClass('rotate-180').removeClass('md:rotate-90').addClass('md:-rotate-90');
                 $previewArea.removeClass('md:left-80').addClass('md:left-0');
-                
-                if ($(window).width() < 768) {
-                    $previewArea.css('bottom', '0');
-                }
+            } else {
+                $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
+                $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
+                $previewArea.removeClass('md:left-0').addClass('md:left-80');
             }
         },
         
         toggleForm: function() {
-            const $formPane = $('#form-pane');
-            const $toggleIcon = $('#toggle-icon');
-            const $previewArea = $('#preview-area');
-            const formHeight = $formPane.outerHeight();
-            const isMobile = () => $(window).width() < 768;
-            let isCollapsed = false;
+            const self = this;
             
             $('#form-toggle').on('click', function() {
-                isCollapsed = !isCollapsed;
-                
-                if (isCollapsed) {
-                    $formPane.addClass('translate-y-full md:translate-y-0 md:-translate-x-full');
-                    $toggleIcon.addClass('rotate-180').removeClass('md:rotate-90').addClass('md:-rotate-90');
-                    $previewArea.removeClass('md:left-80').addClass('md:left-0');
-                    if (isMobile()) {
-                        $previewArea.css('bottom', '0');
-                    }
-                } else {
-                    $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
-                    $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
-                    $previewArea.removeClass('md:left-0').addClass('md:left-80');
-                    if (isMobile()) {
-                        $previewArea.css('bottom', formHeight + 'px');
-                    }
-                }
+                self.isCollapsed = !self.isCollapsed;
+                self.applyCollapseState();
             });
-            
-            if (isMobile()) {
-                $previewArea.css('bottom', formHeight + 'px');
-            }
         }
     },
     
