@@ -12,7 +12,8 @@ const wshly = {
                 recipientName: params.get('recipientName'),
                 mainMessage: params.get('mainMessage'),
                 customMessage: params.get('customMessage'),
-                f: params.get('f')
+                f: params.get('f'),
+                m: params.get('m')
             };
         },
         
@@ -124,6 +125,7 @@ const wshly = {
                 params.set('customMessage', customMsg);
             }
             params.set('f', '1');
+            params.set('m', '1');
             return `${window.location.origin}/card?${params.toString()}`;
         },
         
@@ -150,9 +152,12 @@ const wshly = {
         audio: null,
         isPlaying: false,
         
-        init: function() {
+        init: function(autoplay) {
             this.audio = new Audio('/audio/bgm.mp3');
             this.audio.loop = true;
+            if (autoplay === '1') {
+                $('#sound-overlay').removeClass('hidden');
+            }
         },
         
         toggle: function() {
@@ -164,6 +169,11 @@ const wshly = {
                 $('#musicIcon').attr('src', '/svg/icon-pause.svg');
             }
             this.isPlaying = !this.isPlaying;
+        },
+        
+        enableFromOverlay: function() {
+            $('#sound-overlay').addClass('hidden');
+            this.toggle();
         }
     },
     
@@ -225,7 +235,7 @@ const wshly = {
         this.urlParams.populateForm();
         this.preview.init();
         this.validation.updateCharCounter();
-        this.music.init();
+        this.music.init(params.m);
         
         $('input, select, textarea').on('input change', function() {
             self.preview.update();
@@ -241,6 +251,10 @@ const wshly = {
         
         $('#musicToggle').on('click', function() {
             self.music.toggle();
+        });
+        
+        $('#enable-sound').on('click', function() {
+            self.music.enableFromOverlay();
         });
         
         this.ui.toggleForm();
