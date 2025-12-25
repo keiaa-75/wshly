@@ -230,6 +230,7 @@ const wshly = {
             this.audio.preload = 'metadata';
             if (autoplay === '1') {
                 $('#sound-overlay').removeClass('hidden');
+                $('#enable-sound').trigger('focus');
             }
         },
         
