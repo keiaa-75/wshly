@@ -45,6 +45,13 @@ const wshly = {
         
         populateForm: function() {
             const params = this.parse();
+            
+            // Sanitize and validate - redirect on XSS detection
+            if (!wshly.validation.sanitizeParams(params)) {
+                window.location.href = '/?error=400';
+                return;
+            }
+            
             if (params.senderName) {
                 $('input[name="senderName"]').val(params.senderName);
             }
@@ -106,13 +113,50 @@ const wshly = {
     },
     
     validation: {
+        limits: { senderName: 10, recipientName: 10, customMessage: 150 },
+        xssPattern: /<|>|javascript:|on\w+\s*=/i,
+        
+        isSafe: function(value) {
+            return !this.xssPattern.test(value);
+        },
+        
+        sanitize: function(value, maxLen) {
+            if (!value) return '';
+            const trimmed = value.substring(0, maxLen);
+            return this.isSafe(trimmed) ? trimmed : null;
+        },
+        
+        sanitizeParams: function(params) {
+            const fields = ['senderName', 'recipientName', 'customMessage'];
+            for (const field of fields) {
+                if (params[field]) {
+                    const clean = this.sanitize(params[field], this.limits[field]);
+                    if (clean === null) return false;
+                    params[field] = clean;
+                }
+            }
+            return true;
+        },
+        
         validateField: function(field) {
             const $field = $(field);
+            const name = $field.attr('name');
+            const value = $field.val();
+            const maxLen = this.limits[name];
             const isRequired = $field.prop('required');
-            const isEmpty = !$field.val().trim();
+            const isEmpty = !value.trim();
             
-            if (isRequired && isEmpty) {
+            // Enforce max length
+            if (maxLen && value.length > maxLen) {
+                $field.val(value.substring(0, maxLen));
+            }
+            
+            // Check XSS
+            const hasXss = !this.isSafe(value);
+            
+            if ((isRequired && isEmpty) || hasXss) {
                 $field.removeClass('border-pink-200').addClass('border-red-400 ring-1 ring-red-400');
+                if (hasXss) $field.val('');
             } else {
                 $field.removeClass('border-red-400 ring-1 ring-red-400').addClass('border-pink-200');
             }

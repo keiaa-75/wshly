@@ -35,15 +35,4 @@ public class CardController {
         model.addAttribute("showForm", f.equals("1"));
         return "index";
     }
-
-    @GetMapping("/api/card/preview")
-    @ResponseBody
-    public Card getCardPreview(
-            @RequestParam(defaultValue = "") String senderName,
-            @RequestParam(defaultValue = "") String recipientName,
-            @RequestParam(defaultValue = "MERRY_CHRISTMAS") MainMessage mainMessage,
-            @RequestParam(defaultValue = "") String customMessage) {
-        
-        return new Card(senderName, recipientName, mainMessage, customMessage);
-    }
 }
