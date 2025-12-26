@@ -5,15 +5,10 @@ const wshly = {
     },
     
     theme: {
-        current: 'cherry',
+        current: localStorage.getItem('wshly-theme') || 'cherry',
         
         init: function() {
-            const saved = localStorage.getItem('wshly-theme');
-            if (saved === 'snow') {
-                this.current = 'snow';
-                $('html').addClass('snow');
-                $('#theme-label').text('snow');
-            }
+            $('#theme-label').text(this.current);
         },
         
         toggle: function() {
