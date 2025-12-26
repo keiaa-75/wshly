@@ -53,10 +53,10 @@ const wshly = {
         parse: function() {
             const params = new URLSearchParams(window.location.search);
             return {
-                senderName: params.get('senderName'),
-                recipientName: params.get('recipientName'),
-                mainMessage: params.get('mainMessage'),
-                customMessage: params.get('customMessage'),
+                senderName: DOMPurify.sanitize(params.get('senderName') || '', {ALLOWED_TAGS: []}),
+                recipientName: DOMPurify.sanitize(params.get('recipientName') || '', {ALLOWED_TAGS: []}),
+                mainMessage: DOMPurify.sanitize(params.get('mainMessage') || '', {ALLOWED_TAGS: []}),
+                customMessage: DOMPurify.sanitize(params.get('customMessage') || '', {ALLOWED_TAGS: []}),
                 f: params.get('f'),
                 m: params.get('m'),
                 error: params.get('error')
@@ -66,20 +66,13 @@ const wshly = {
         populateForm: function() {
             const params = this.parse();
             
-            // Sanitize and validate - redirect on XSS detection
-            if (!wshly.validation.sanitizeParams(params)) {
-                window.location.href = '/?error=400';
-                return;
-            }
-            
             if (params.senderName) {
-                $('input[name="senderName"]').val(params.senderName);
+                $('input[name="senderName"]').val(params.senderName.substring(0, 10));
             }
             if (params.recipientName) {
-                $('input[name="recipientName"]').val(params.recipientName);
+                $('input[name="recipientName"]').val(params.recipientName.substring(0, 10));
             }
             if (params.mainMessage) {
-                // Handle custom dropdown
                 const dropdown = $('.pixel-dropdown[data-name="mainMessage"]');
                 const hiddenInput = dropdown.find('input[type="hidden"]');
                 const dropdownText = dropdown.find('.dropdown-text');
@@ -87,7 +80,6 @@ const wshly = {
                 
                 hiddenInput.val(params.mainMessage);
                 
-                // Find and select the matching option
                 options.removeClass('selected');
                 const matchingOption = options.filter(`[data-value="${params.mainMessage}"]`);
                 if (matchingOption.length) {
@@ -96,29 +88,26 @@ const wshly = {
                 }
             }
             if (params.customMessage) {
-                $('textarea[name="customMessage"]').val(params.customMessage);
+                $('textarea[name="customMessage"]').val(params.customMessage.substring(0, 150));
             }
         }
     },
     
     preview: {
         update: function() {
-            const senderName = $('input[name="senderName"]').val() || 'You';
-            const recipientName = $('input[name="recipientName"]').val() || 'Someone Special';
+            const senderName = DOMPurify.sanitize($('input[name="senderName"]').val() || 'You', {ALLOWED_TAGS: []});
+            const recipientName = DOMPurify.sanitize($('input[name="recipientName"]').val() || 'Someone Special', {ALLOWED_TAGS: []});
             
-            // Get selected message from custom dropdown
             const dropdown = $('.pixel-dropdown[data-name="mainMessage"]');
             const selectedOption = dropdown.find('.pixel-dropdown-option.selected');
-            const mainMessage = selectedOption.length ? selectedOption.text() : 'Merry Christmas!';
+            const mainMessage = DOMPurify.sanitize(selectedOption.length ? selectedOption.text() : 'Merry Christmas!', {ALLOWED_TAGS: []});
             
-            const customMessage = $('textarea[name="customMessage"]').val();
+            const customMessage = DOMPurify.sanitize($('textarea[name="customMessage"]').val(), {ALLOWED_TAGS: []});
             
-            // Update card elements
             $('#card-header').text(mainMessage);
             $('#card-recipient').text(recipientName);
             $('#card-sender').text(senderName);
             
-            // Handle custom message visibility
             const $customMsgContainer = $('#card-custom-message');
             if (customMessage.trim()) {
                 $customMsgContainer.removeClass('hidden').find('p').text(customMessage);
@@ -134,29 +123,6 @@ const wshly = {
     
     validation: {
         limits: { senderName: 10, recipientName: 10, customMessage: 150 },
-        xssPattern: /<|>|javascript:|on\w+\s*=/i,
-        
-        isSafe: function(value) {
-            return !this.xssPattern.test(value);
-        },
-        
-        sanitize: function(value, maxLen) {
-            if (!value) return '';
-            const trimmed = value.substring(0, maxLen);
-            return this.isSafe(trimmed) ? trimmed : null;
-        },
-        
-        sanitizeParams: function(params) {
-            const fields = ['senderName', 'recipientName', 'customMessage'];
-            for (const field of fields) {
-                if (params[field]) {
-                    const clean = this.sanitize(params[field], this.limits[field]);
-                    if (clean === null) return false;
-                    params[field] = clean;
-                }
-            }
-            return true;
-        },
         
         validateField: function(field) {
             const $field = $(field);
@@ -166,17 +132,17 @@ const wshly = {
             const isRequired = $field.prop('required');
             const isEmpty = !value.trim();
             
-            // Enforce max length
             if (maxLen && value.length > maxLen) {
                 $field.val(value.substring(0, maxLen));
             }
             
-            // Check XSS
-            const hasXss = !this.isSafe(value);
+            const sanitized = DOMPurify.sanitize(value, {ALLOWED_TAGS: []});
+            if (sanitized !== value) {
+                $field.val(sanitized);
+            }
             
-            if ((isRequired && isEmpty) || hasXss) {
+            if (isRequired && isEmpty) {
                 $field.removeClass('border-pink-200').addClass('border-red-400 ring-1 ring-red-400');
-                if (hasXss) $field.val('');
             } else {
                 $field.removeClass('border-red-400 ring-1 ring-red-400').addClass('border-pink-200');
             }
@@ -206,15 +172,14 @@ const wshly = {
         
         generateUrl: function() {
             const params = new URLSearchParams();
-            params.set('senderName', $('input[name="senderName"]').val());
-            params.set('recipientName', $('input[name="recipientName"]').val());
+            params.set('senderName', DOMPurify.sanitize($('input[name="senderName"]').val(), {ALLOWED_TAGS: []}));
+            params.set('recipientName', DOMPurify.sanitize($('input[name="recipientName"]').val(), {ALLOWED_TAGS: []}));
             
-            // Get value from custom dropdown
             const dropdown = $('.pixel-dropdown[data-name="mainMessage"]');
             const hiddenInput = dropdown.find('input[type="hidden"]');
-            params.set('mainMessage', hiddenInput.val());
+            params.set('mainMessage', DOMPurify.sanitize(hiddenInput.val(), {ALLOWED_TAGS: []}));
             
-            const customMsg = $('textarea[name="customMessage"]').val();
+            const customMsg = DOMPurify.sanitize($('textarea[name="customMessage"]').val(), {ALLOWED_TAGS: []});
             if (customMsg.trim()) {
                 params.set('customMessage', customMsg);
             }
