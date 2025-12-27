@@ -325,7 +325,7 @@ const wshly = {
                 $toggleBtn.attr('aria-expanded', 'false');
                 $toggleIcon.addClass('rotate-180').removeClass('md:rotate-90').addClass('md:-rotate-90');
                 $previewArea
-                    .removeClass('md:left-80 bottom-[420px]')
+                    .removeClass('md:left-80 bottom-[40vh]')
                     .addClass('md:left-0 bottom-0');
             } else {
                 $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
@@ -333,7 +333,7 @@ const wshly = {
                 $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
                 $previewArea
                     .removeClass('md:left-0 bottom-0')
-                    .addClass('md:left-80 bottom-[420px]');
+                    .addClass('md:left-80 bottom-[40vh]');
             }
         },
         
