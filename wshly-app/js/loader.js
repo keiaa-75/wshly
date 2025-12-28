@@ -1,11 +1,11 @@
 $(document).ready(function() {
     const components = {
-        '#sound-overlay-placeholder': 'components/sound-overlay.html',
-        '#about-modal-placeholder': 'components/about-modal.html',
-        '#error-modal-placeholder': 'components/error-modal.html',
-        '#card-display-placeholder': 'components/card-display.html',
-        '#form-toggle-placeholder': 'components/form-toggle.html',
-        '#card-form-placeholder': 'components/card-form.html'
+        '#sound-overlay-placeholder': 'parts/sound-overlay.html',
+        '#about-modal-placeholder': 'parts/about-modal.html',
+        '#error-modal-placeholder': 'parts/error-modal.html',
+        '#card-display-placeholder': 'parts/card-display.html',
+        '#form-toggle-placeholder': 'parts/form-toggle.html',
+        '#card-form-placeholder': 'parts/card-form.html'
     };
 
     const promises = Object.keys(components).map(placeholder => {
@@ -16,10 +16,10 @@ $(document).ready(function() {
 
     $.when.apply($, promises).done(function() {
         const subComponents = {
-            '#stickers-placeholder': 'components/stickers.html',
-            '#snowflakes-placeholder': 'components/pixel-snowflakes.html',
-            '#mainMessage-dropdown': 'components/custom-dropdown.html',
-            '#copyLink-button-placeholder': 'components/pixel-button.html'
+            '#stickers-placeholder': 'parts/stickers.html',
+            '#snowflakes-placeholder': 'parts/pixel-snowflakes.html',
+            '#mainMessage-dropdown': 'parts/custom-dropdown.html',
+            '#copyLink-button-placeholder': 'parts/pixel-button.html'
         };
 
         const subPromises = Object.keys(subComponents).map(placeholder => {
