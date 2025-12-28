@@ -1,4 +1,4 @@
-<div th:fragment="card" xmlns:th="http://www.thymeleaf.org">
+<div>
     <style>
         .postcard {
             --border-stripe-size: 12px;
@@ -63,13 +63,13 @@
                 
                 <!-- Right Pane: Stickers (fixed width on desktop) -->
                 <div id="card-addon-pane" class="md:w-[180px] md:flex-shrink-0 flex flex-col items-center justify-center">
-                    <div th:replace="~{fragments/addons/stickers :: stickers}"></div>
+                    <div id="stickers-placeholder"></div>
                 </div>
                 
             </div>
             
             <!-- Snowflakes Overlay -->
-            <div th:replace="~{fragments/addons/pixel-snowflakes :: pixel-snowflakes}"></div>
+            <div id="snowflakes-placeholder"></div>
                 
         </div>
     </div>

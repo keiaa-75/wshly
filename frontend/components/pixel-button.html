@@ -1,4 +1,4 @@
-<div th:fragment="pixel-button(id, text, type)" th:remove="tag" xmlns:th="http://www.thymeleaf.org">
+<div>
 <style>
 .pixel-button {
     width: 100%;
@@ -41,9 +41,9 @@
     50% { background: var(--theme-400); }
 }
 </style>
-<button th:id="${id}"
-        th:type="${type ?: 'button'}"
+<button id=""
+        type="button"
         class="pixel-button font-superhelio uppercase tracking-wide select-none">
-    <span th:text="${text}">Button Text</span>
+    <span>Button Text</span>
 </button>
 </div>

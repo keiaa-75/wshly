@@ -1,7 +1,16 @@
 const wshly = {
     config: {
         MAX_CHARS: 150,
-        CHAR_WARNING_THRESHOLD: 20
+        CHAR_WARNING_THRESHOLD: 20,
+        mainMessages: {
+            MERRY_CHRISTMAS: "Merry Christmas!",
+            HAPPY_HOLIDAYS: "Happy Holidays!",
+            SEASONS_GREETINGS: "Season's Greetings!",
+            HAPPY_NEW_YEAR: "Happy New Year!",
+            WARM_WISHES: "Warm Holiday Wishes!",
+            JOY_AND_PEACE: "Wishing You Joy & Peace"
+        },
+        defaultMessage: 'MERRY_CHRISTMAS'
     },
     
     theme: {
@@ -248,7 +257,7 @@ const wshly = {
         isPlaying: false,
         
         init: function(autoplay) {
-            this.audio = new Audio('/audio/bgm.mp3');
+            this.audio = new Audio('audio/bgm.mp3');
             this.audio.loop = true;
             this.audio.preload = 'metadata';
             if (autoplay === '1') {
@@ -260,10 +269,10 @@ const wshly = {
         toggle: function() {
             if (this.isPlaying) {
                 this.audio.pause();
-                $('#musicIcon').attr('src', '/svg/icon-play.svg');
+                $('#musicIcon').attr('src', 'svg/icon-play.svg');
             } else {
                 this.audio.play();
-                $('#musicIcon').attr('src', '/svg/icon-pause.svg');
+                $('#musicIcon').attr('src', 'svg/icon-pause.svg');
             }
             this.isPlaying = !this.isPlaying;
         },
@@ -344,6 +353,58 @@ const wshly = {
                 self.isCollapsed = !self.isCollapsed;
                 self.applyCollapseState();
             });
+        },
+
+        populateMessages: function() {
+            const dropdown = $('.pixel-dropdown[data-name="mainMessage"]');
+            const dropdownList = dropdown.find('.pixel-dropdown-options');
+            const hiddenInput = dropdown.find('input[type="hidden"]');
+            const dropdownText = dropdown.find('.dropdown-text');
+        
+            dropdownList.empty(); // Clear existing options
+        
+            const messages = wshly.config.mainMessages;
+            for (const key in messages) {
+                const option = $(`
+                    <div class="pixel-dropdown-option" data-value="${key}" tabindex="0">
+                        <span class="mr-2"></span>
+                        <p>${messages[key]}</p>
+                    </div>
+                `);
+                dropdownList.append(option);
+            }
+        
+            // Set default value
+            const defaultMessageKey = wshly.config.defaultMessage;
+            const defaultMessageText = messages[defaultMessageKey];
+            
+            // Check if there's a value from URL params, otherwise use default
+            const params = wshly.urlParams.parse();
+            const initialMessageKey = params.mainMessage && wshly.config.mainMessages[params.mainMessage]
+                ? params.mainMessage
+                : defaultMessageKey;
+            
+            const initialMessageText = wshly.config.mainMessages[initialMessageKey];
+
+            hiddenInput.val(initialMessageKey);
+            dropdownText.text(initialMessageText);
+            
+            // Re-add click handler for options since we cleared them
+            dropdown.on('click', '.pixel-dropdown-option', function() {
+                const $this = $(this);
+                const value = $this.data('value');
+                const text = $this.text();
+
+                hiddenInput.val(value).trigger('change');
+                dropdownText.text(text);
+
+                dropdown.find('.pixel-dropdown-option').removeClass('selected');
+                $this.addClass('selected');
+                
+                dropdown.find('.pixel-dropdown-options').addClass('hidden');
+                dropdown.attr('aria-expanded', 'false');
+            });
+
         }
     },
     
@@ -352,6 +413,7 @@ const wshly = {
         const params = this.urlParams.parse();
         
         this.theme.init();
+        this.ui.populateMessages();
         this.urlParams.populateForm();
         this.preview.init();
         this.validation.updateCharCounter();
@@ -443,6 +505,3 @@ const wshly = {
     }
 };
 
-$(document).ready(function() {
-    wshly.init();
-});
