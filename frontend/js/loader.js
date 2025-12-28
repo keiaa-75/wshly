@@ -15,7 +15,6 @@ $(document).ready(function() {
     });
 
     $.when.apply($, promises).done(function() {
-        // All components are loaded, now load the sub-components
         const subComponents = {
             '#stickers-placeholder': 'components/stickers.html',
             '#snowflakes-placeholder': 'components/pixel-snowflakes.html',
@@ -30,13 +29,11 @@ $(document).ready(function() {
         });
         
         $.when.apply($, subPromises).done(function() {
-            // All sub-components are loaded, now customize the pixel button
             const buttonPlaceholder = $('#copyLink-button-placeholder');
             const button = buttonPlaceholder.find('button');
             button.attr('id', 'copyLink');
             button.find('span').text('Share Card <3');
 
-            // Now that all HTML is loaded, initialize the main script
             if (typeof wshly !== 'undefined' && typeof wshly.init === 'function') {
                 wshly.init();
             }

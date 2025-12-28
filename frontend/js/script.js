@@ -189,7 +189,7 @@ const wshly = {
             }
             params.set('f', '1');
             params.set('m', '1');
-            return `${window.location.origin}/card?${params.toString()}`;
+            return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
         },
         
         shortenUrl: function(url) {
@@ -316,13 +316,6 @@ const wshly = {
             }
         },
         
-        setFormVisibility: function(params) {
-            if (params.f === '1') {
-                this.isCollapsed = true;
-                this.applyCollapseState();
-            }
-        },
-        
         applyCollapseState: function() {
             const $formPane = $('#form-pane');
             const $toggleBtn = $('#form-toggle');
@@ -331,14 +324,20 @@ const wshly = {
             
             if (this.isCollapsed) {
                 $formPane.addClass('translate-y-full md:translate-y-0 md:-translate-x-full');
-                $toggleBtn.attr('aria-expanded', 'false');
+                $toggleBtn
+                    .attr('aria-expanded', 'false')
+                    .removeClass('absolute md:left-full')
+                    .addClass('fixed bottom-[calc(100%+0.5rem)] md:bottom-auto md:left-0 md:top-1/2');
                 $toggleIcon.addClass('rotate-180').removeClass('md:rotate-90').addClass('md:-rotate-90');
                 $previewArea
                     .removeClass('md:left-80 bottom-[40vh]')
                     .addClass('md:left-0 bottom-0');
             } else {
                 $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
-                $toggleBtn.attr('aria-expanded', 'true');
+                $toggleBtn
+                    .attr('aria-expanded', 'true')
+                    .removeClass('fixed bottom-[calc(100%+0.5rem)] md:bottom-auto md:left-0 md:top-1/2')
+                    .addClass('absolute md:left-full');
                 $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
                 $previewArea
                     .removeClass('md:left-0 bottom-0')
@@ -391,17 +390,30 @@ const wshly = {
         }
     },
     
+    routing: {
+        init: function() {
+            const params = wshly.urlParams.parse();
+            const hasCardParams = params.senderName || params.recipientName || params.mainMessage || params.customMessage;
+
+            // View mode: hide form when card params exist OR f=1 is set
+            if (hasCardParams || params.f === '1') {
+                wshly.ui.isCollapsed = true;
+                wshly.ui.applyCollapseState();
+            }
+        }
+    },
+
     init: function() {
         const self = this;
         const params = this.urlParams.parse();
-        
+
         this.theme.init();
         this.ui.populateMessages();
         this.urlParams.populateForm();
         this.preview.init();
         this.validation.updateCharCounter();
         this.music.init(params.m);
-        
+
         $('input, select, textarea').on('input change', function() {
             self.preview.update();
             self.validation.validateField(this);
@@ -409,66 +421,68 @@ const wshly = {
                 self.validation.updateCharCounter();
             }
         });
-        
+
         $('#copyLink').on('click', function() {
             self.sharing.copyLink();
         });
-        
+
         $('#shorten-toggle, #shorten-label').on('click', function() {
             self.sharing.toggleShorten();
         });
-        
+
         $('#shorten-toggle').on('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 self.sharing.toggleShorten();
             }
         });
-        
+
         $('#musicToggle').on('click', function() {
             self.music.toggle();
         });
-        
+
         $('#enable-sound').on('click', function() {
             self.music.enableFromOverlay();
         });
-        
+
         $('#about-btn').on('click', function() {
             self.ui.openModal('#about-modal');
         });
-        
+
         $('#close-about').on('click', function() {
             self.ui.closeModal('#about-modal');
         });
-        
+
         $('#about-modal').on('click', function(e) {
             if (e.target === this) {
                 self.ui.closeModal('#about-modal');
             }
         });
-        
+
         $('#theme-toggle').on('click', function() {
             self.theme.toggle();
         });
-        
+
         this.ui.toggleForm();
-        this.ui.setFormVisibility(params);
-        
-        // Show error modal if error param exists
+
+        // Initialize routing - this will handle form visibility based on route
+        this.routing.init();
+
+        // Show error modal if error param exists (this can be additional to route-based errors)
         if (params.error) {
             this.ui.openModal('#error-modal');
         }
-        
+
         $('#close-error').on('click', function() {
             self.ui.closeModal('#error-modal');
         });
-        
+
         $('#error-modal').on('click', function(e) {
             if (e.target === this) {
                 self.ui.closeModal('#error-modal');
             }
         });
-        
+
         // Keyboard: Escape closes modals, Tab traps focus
         $(document).on('keydown', function(e) {
             if (e.key === 'Escape' && self.ui.activeModal) {
@@ -478,7 +492,7 @@ const wshly = {
                 self.ui.trapFocus(e);
             }
         });
-        
+
         $('#enable-sound').on('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
