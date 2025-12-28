@@ -367,7 +367,6 @@ const wshly = {
             for (const key in messages) {
                 const option = $(`
                     <div class="pixel-dropdown-option" data-value="${key}" tabindex="0">
-                        <span class="mr-2"></span>
                         <p>${messages[key]}</p>
                     </div>
                 `);
@@ -389,22 +388,6 @@ const wshly = {
             hiddenInput.val(initialMessageKey);
             dropdownText.text(initialMessageText);
             
-            // Re-add click handler for options since we cleared them
-            dropdown.on('click', '.pixel-dropdown-option', function() {
-                const $this = $(this);
-                const value = $this.data('value');
-                const text = $this.text();
-
-                hiddenInput.val(value).trigger('change');
-                dropdownText.text(text);
-
-                dropdown.find('.pixel-dropdown-option').removeClass('selected');
-                $this.addClass('selected');
-                
-                dropdown.find('.pixel-dropdown-options').addClass('hidden');
-                dropdown.attr('aria-expanded', 'false');
-            });
-
         }
     },
     
