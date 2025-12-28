@@ -1,0 +1,43 @@
+<svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Pixelated rounded container -->
+    <path d="M4 0h44v2h2v2h2v44h-2v2h-2v2H4v-2H2v-2H0V4h2V2h2V0z" fill="#fef3c7"/>
+    <!-- Dashed stamp border -->
+    <path d="M6 4h4v2H6zM14 4h4v2h-4zM22 4h8v2h-8zM34 4h4v2h-4zM42 4h4v2h-4z" fill="#fde68a"/>
+    <path d="M48 6h2v4h-2zM48 14h2v4h-2zM48 22h2v8h-2zM48 34h2v4h-2zM48 42h2v4h-2z" fill="#fde68a"/>
+    <path d="M42 48h4v2h-4zM34 48h4v2h-4zM22 48h8v2h-8zM14 48h4v2h-4zM6 48h4v2H6z" fill="#fde68a"/>
+    <path d="M2 42h2v4H2zM2 34h2v4H2zM2 22h2v8H2zM2 14h2v4H2zM2 6h2v4H2z" fill="#fde68a"/>
+    <!-- Banana leaves - bottom wrap -->
+    <rect x="10" y="34" width="32" height="6" fill="#22c55e"/>
+    <rect x="8" y="32" width="4" height="8" fill="#16a34a"/>
+    <rect x="40" y="32" width="4" height="8" fill="#16a34a"/>
+    <rect x="12" y="38" width="28" height="4" fill="#16a34a"/>
+    <!-- Leaf edges peeking up -->
+    <rect x="8" y="24" width="4" height="10" fill="#22c55e"/>
+    <rect x="6" y="26" width="2" height="6" fill="#16a34a"/>
+    <rect x="40" y="24" width="4" height="10" fill="#22c55e"/>
+    <rect x="44" y="26" width="2" height="6" fill="#16a34a"/>
+    <!-- Bibingka cake body - golden base -->
+    <rect x="14" y="28" width="24" height="8" fill="#f59e0b"/>
+    <rect x="12" y="24" width="28" height="6" fill="#fbbf24"/>
+    <rect x="14" y="20" width="24" height="6" fill="#fcd34d"/>
+    <rect x="16" y="16" width="20" height="6" fill="#fde68a"/>
+    <!-- Caramelized top edge -->
+    <rect x="14" y="18" width="24" height="2" fill="#ea580c"/>
+    <rect x="12" y="22" width="2" height="4" fill="#f97316"/>
+    <rect x="38" y="22" width="2" height="4" fill="#f97316"/>
+    <!-- Grated coconut topping -->
+    <rect x="18" y="14" width="4" height="2" fill="#ffffff"/>
+    <rect x="24" y="12" width="6" height="2" fill="#ffffff"/>
+    <rect x="32" y="14" width="4" height="2" fill="#ffffff"/>
+    <rect x="20" y="16" width="2" height="2" fill="#ffffff"/>
+    <rect x="26" y="14" width="2" height="2" fill="#fefefe"/>
+    <rect x="30" y="16" width="4" height="2" fill="#ffffff"/>
+    <rect x="22" y="18" width="2" height="2" fill="#f5f5f4"/>
+    <rect x="28" y="18" width="2" height="2" fill="#ffffff"/>
+    <!-- Cake highlight -->
+    <rect x="16" y="20" width="2" height="4" fill="#fef3c7"/>
+    <!-- Warm speckles on cake -->
+    <rect x="20" y="26" width="2" height="2" fill="#ea580c"/>
+    <rect x="30" y="24" width="2" height="2" fill="#f97316"/>
+    <rect x="26" y="30" width="2" height="2" fill="#ea580c"/>
+</svg>

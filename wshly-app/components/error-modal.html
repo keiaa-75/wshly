@@ -1,0 +1,20 @@
+<div id="error-modal"
+     role="dialog" aria-modal="true" aria-labelledby="error-title"
+     class="fixed inset-0 z-50 flex items-center justify-center hidden" style="background: color-mix(in srgb, var(--theme-900) 80%, transparent)">
+    <div class="pixel-button !bg-white !cursor-default !max-w-xs mx-4 !p-0 overflow-hidden !block">
+        <!-- Window bar -->
+        <div class="flex items-center justify-between border-b-2 border-black bg-white px-3 py-2">
+            <span id="error-title" class="font-superhelio text-lg" style="color: var(--theme-600)">error</span>
+            <button id="close-error" class="w-7 h-7 flex items-center justify-center shrink-0" style="background: var(--theme-500)" onmouseover="this.style.background='var(--theme-600)'" onmouseout="this.style.background='var(--theme-500)'"
+                    aria-label="Close">
+                <img src="svg/icon-close.svg" alt="" class="w-4 h-4">
+            </button>
+        </div>
+        <!-- Content -->
+        <div class="flex flex-col items-center gap-4 p-4 text-center">
+            <p class="font-aux-dotbitc text-gray-700 text-sm leading-relaxed">
+                Something went... wrong? It seems so, and we're calling Santa's elves to help us mend it!
+            </p>
+        </div>
+    </div>
+</div>

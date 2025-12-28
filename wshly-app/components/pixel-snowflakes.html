@@ -1,0 +1,62 @@
+<div>
+    <style>
+        .snowflakes-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 20;
+            overflow: hidden;
+        }
+        
+        .snowflake {
+            position: absolute;
+            color: #93c5fd;
+            font-family: 'AuX DotBitC', monospace;
+        }
+        
+        .snowflake::before {
+            content: '❄';
+            display: inline-block;
+            animation: twinkle 3s ease-in-out infinite, sway 4s ease-in-out infinite;
+        }
+        
+        .sf-xs { font-size: 0.5rem; }
+        .sf-sm { font-size: 0.625rem; }
+        .sf-md { font-size: 0.75rem; }
+        
+        .sf-xs::before { opacity: 0.25; }
+        .sf-sm::before { opacity: 0.3; }
+        .sf-md::before { opacity: 0.35; }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: inherit; }
+            50% { opacity: 0.15; }
+        }
+        
+        @keyframes sway {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+    </style>
+    
+    <div class="snowflakes-overlay">
+        <!-- Top scattered -->
+        <span class="snowflake sf-xs" style="top: 8%; left: 12%; animation-delay: 0s, 0.5s;"></span>
+        <span class="snowflake sf-sm" style="top: 5%; left: 45%; animation-delay: 0.8s, 0s;"></span>
+        <span class="snowflake sf-xs" style="top: 12%; left: 78%; animation-delay: 1.5s, 1s;"></span>
+        <span class="snowflake sf-md" style="top: 6%; right: 8%; animation-delay: 2s, 0.3s;"></span>
+        
+        <!-- Middle scattered -->
+        <span class="snowflake sf-sm" style="top: 35%; left: 5%; animation-delay: 0.3s, 1.2s;"></span>
+        <span class="snowflake sf-xs" style="top: 42%; left: 28%; animation-delay: 1.2s, 0.7s;"></span>
+        <span class="snowflake sf-xs" style="top: 50%; left: 52%; animation-delay: 2.2s, 1.5s;"></span>
+        <span class="snowflake sf-sm" style="top: 38%; right: 15%; animation-delay: 0.6s, 2s;"></span>
+        
+        <!-- Bottom scattered -->
+        <span class="snowflake sf-md" style="top: 68%; left: 8%; animation-delay: 1.8s, 0.2s;"></span>
+        <span class="snowflake sf-xs" style="top: 75%; left: 35%; animation-delay: 0.4s, 1.8s;"></span>
+        <span class="snowflake sf-sm" style="top: 82%; left: 60%; animation-delay: 2.5s, 0.9s;"></span>
+        <span class="snowflake sf-xs" style="top: 70%; right: 5%; animation-delay: 1s, 2.2s;"></span>
+        <span class="snowflake sf-sm" style="top: 88%; right: 25%; animation-delay: 1.6s, 0.4s;"></span>
+    </div>
+</div>
