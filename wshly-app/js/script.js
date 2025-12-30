@@ -284,7 +284,11 @@ const wshly = {
     },
     
     ui: {
-        isCollapsed: false,
+        formState: {
+            isCollapsed: false,
+            stateReason: 'initial', // 'initial', 'route', 'user'
+            transitionCount: 0
+        },
         activeModal: null,
         
         openModal: function(modalId) {
@@ -316,32 +320,86 @@ const wshly = {
             }
         },
         
-        applyCollapseState: function() {
-            const $formPane = $('#form-pane');
-            const $toggleBtn = $('#form-toggle');
-            const $toggleIcon = $('#toggle-icon');
-            const $previewArea = $('#preview-area');
+        logStateChange: function(reason, oldState, newState) {
+            this.formState.transitionCount++;
+            console.log(`Form state change #${this.formState.transitionCount}:`, {
+                from: oldState,
+                to: newState,
+                reason: reason,
+                timestamp: new Date().toISOString()
+            });
+        },
+
+        syncFormState: function() {
+            const oldState = this.formState.isCollapsed;
+            console.log('Form state sync:', { 
+                collapsed: this.formState.isCollapsed, 
+                reason: this.formState.stateReason 
+            });
             
-            if (this.isCollapsed) {
+            this.updateFormPane();
+            this.updateToggleButton();
+            this.updateToggleIcon();
+            this.updatePreviewArea();
+            this.updateAriaStates();
+        },
+
+        updateFormPane: function() {
+            const $formPane = $('#form-pane');
+            if (this.formState.isCollapsed) {
                 $formPane.addClass('translate-y-full md:translate-y-0 md:-translate-x-full');
+            } else {
+                $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
+            }
+        },
+
+        updateToggleButton: function() {
+            const $toggleBtn = $('#form-toggle');
+            if (this.formState.isCollapsed) {
                 $toggleBtn
-                    .attr('aria-expanded', 'false')
-                    .removeClass('absolute md:left-full')
-                    .addClass('fixed bottom-[calc(100%+0.5rem)] md:bottom-auto md:left-0 md:top-1/2');
-                $toggleIcon.addClass('rotate-180').removeClass('md:rotate-90').addClass('md:-rotate-90');
+                    .removeClass('top-[calc(100vh-40vh-2rem)] left-1/2 -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:left-80')
+                    .addClass('bottom-4 left-1/2 -translate-x-1/2 md:bottom-auto md:left-2 md:top-1/2 md:-translate-y-1/2');
+            } else {
+                $toggleBtn
+                    .removeClass('bottom-4 left-1/2 -translate-x-1/2 md:bottom-auto md:left-2 md:top-1/2 md:-translate-y-1/2')
+                    .addClass('top-[calc(100vh-40vh-2rem)] left-1/2 -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:left-80');
+            }
+        },
+
+        updateToggleIcon: function() {
+            const $toggleIcon = $('#toggle-icon');
+            if (this.formState.isCollapsed) {
+                $toggleIcon.addClass('rotate-180 md:-rotate-90').removeClass('md:rotate-90');
+            } else {
+                $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
+            }
+        },
+
+        updatePreviewArea: function() {
+            const $previewArea = $('#preview-area');
+            if (this.formState.isCollapsed) {
                 $previewArea
                     .removeClass('md:left-80 bottom-[40vh]')
                     .addClass('md:left-0 bottom-0');
             } else {
-                $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
-                $toggleBtn
-                    .attr('aria-expanded', 'true')
-                    .removeClass('fixed bottom-[calc(100%+0.5rem)] md:bottom-auto md:left-0 md:top-1/2')
-                    .addClass('absolute md:left-full');
-                $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
                 $previewArea
                     .removeClass('md:left-0 bottom-0')
                     .addClass('md:left-80 bottom-[40vh]');
+            }
+        },
+
+        updateAriaStates: function() {
+            const $toggleBtn = $('#form-toggle');
+            $toggleBtn.attr('aria-expanded', !this.formState.isCollapsed);
+        },
+
+        setFormState: function(isCollapsed, reason) {
+            const oldState = this.formState.isCollapsed;
+            if (oldState !== isCollapsed) {
+                this.formState.isCollapsed = isCollapsed;
+                this.formState.stateReason = reason;
+                this.logStateChange(reason, oldState, isCollapsed);
+                this.syncFormState();
             }
         },
         
@@ -349,8 +407,7 @@ const wshly = {
             const self = this;
             
             $('#form-toggle').on('click', function() {
-                self.isCollapsed = !self.isCollapsed;
-                self.applyCollapseState();
+                self.setFormState(!self.formState.isCollapsed, 'user');
             });
         },
 
@@ -397,8 +454,7 @@ const wshly = {
 
             // View mode: hide form when card params exist OR f=1 is set
             if (hasCardParams || params.f === '1') {
-                wshly.ui.isCollapsed = true;
-                wshly.ui.applyCollapseState();
+                wshly.ui.setFormState(true, 'route');
             }
         }
     },
@@ -409,9 +465,7 @@ const wshly = {
 
         this.theme.init();
         this.ui.populateMessages();
-        this.urlParams.populateForm();
         this.preview.init();
-        this.validation.updateCharCounter();
         this.music.init(params.m);
 
         $('input, select, textarea').on('input change', function() {
@@ -467,6 +521,15 @@ const wshly = {
 
         // Initialize routing - this will handle form visibility based on route
         this.routing.init();
+
+        // Always sync initial state to ensure UI matches JavaScript state
+        this.ui.syncFormState();
+
+        // Populate form fields only if form is visible (edit mode)
+        if (!this.ui.formState.isCollapsed) {
+            this.urlParams.populateForm();
+            this.validation.updateCharCounter();
+        }
 
         // Show error modal if error param exists (this can be additional to route-based errors)
         if (params.error) {
