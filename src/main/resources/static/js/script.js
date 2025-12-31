@@ -1,16 +1,7 @@
 const wshly = {
     config: {
         MAX_CHARS: 150,
-        CHAR_WARNING_THRESHOLD: 20,
-        mainMessages: {
-            MERRY_CHRISTMAS: "Merry Christmas!",
-            HAPPY_HOLIDAYS: "Happy Holidays!",
-            SEASONS_GREETINGS: "Season's Greetings!",
-            HAPPY_NEW_YEAR: "Happy New Year!",
-            WARM_WISHES: "Warm Holiday Wishes!",
-            JOY_AND_PEACE: "Wishing You Joy & Peace"
-        },
-        defaultMessage: 'MERRY_CHRISTMAS'
+        CHAR_WARNING_THRESHOLD: 20
     },
     
     theme: {
@@ -189,7 +180,7 @@ const wshly = {
             }
             params.set('f', '1');
             params.set('m', '1');
-            return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+            return `${window.location.origin}/card?${params.toString()}`;
         },
         
         shortenUrl: function(url) {
@@ -257,7 +248,7 @@ const wshly = {
         isPlaying: false,
         
         init: function(autoplay) {
-            this.audio = new Audio('audio/bgm.mp3');
+            this.audio = new Audio('/audio/bgm.mp3');
             this.audio.loop = true;
             this.audio.preload = 'metadata';
             if (autoplay === '1') {
@@ -269,10 +260,10 @@ const wshly = {
         toggle: function() {
             if (this.isPlaying) {
                 this.audio.pause();
-                $('#musicIcon').attr('src', 'svg/icon-play.svg');
+                $('#musicIcon').attr('src', '/svg/icon-play.svg');
             } else {
                 this.audio.play();
-                $('#musicIcon').attr('src', 'svg/icon-pause.svg');
+                $('#musicIcon').attr('src', '/svg/icon-pause.svg');
             }
             this.isPlaying = !this.isPlaying;
         },
@@ -284,11 +275,7 @@ const wshly = {
     },
     
     ui: {
-        formState: {
-            isCollapsed: false,
-            stateReason: 'initial', // 'initial', 'route', 'user'
-            transitionCount: 0
-        },
+        isCollapsed: false,
         activeModal: null,
         
         openModal: function(modalId) {
@@ -320,86 +307,33 @@ const wshly = {
             }
         },
         
-        logStateChange: function(reason, oldState, newState) {
-            this.formState.transitionCount++;
-            console.log(`Form state change #${this.formState.transitionCount}:`, {
-                from: oldState,
-                to: newState,
-                reason: reason,
-                timestamp: new Date().toISOString()
-            });
+        setFormVisibility: function(params) {
+            if (params.f === '1') {
+                this.isCollapsed = true;
+                this.applyCollapseState();
+            }
         },
-
-        syncFormState: function() {
-            const oldState = this.formState.isCollapsed;
-            console.log('Form state sync:', { 
-                collapsed: this.formState.isCollapsed, 
-                reason: this.formState.stateReason 
-            });
-            
-            this.updateFormPane();
-            this.updateToggleButton();
-            this.updateToggleIcon();
-            this.updatePreviewArea();
-            this.updateAriaStates();
-        },
-
-        updateFormPane: function() {
+        
+        applyCollapseState: function() {
             const $formPane = $('#form-pane');
-            if (this.formState.isCollapsed) {
-                $formPane.addClass('translate-y-full md:translate-y-0 md:-translate-x-full');
-            } else {
-                $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
-            }
-        },
-
-        updateToggleButton: function() {
             const $toggleBtn = $('#form-toggle');
-            if (this.formState.isCollapsed) {
-                $toggleBtn
-                    .removeClass('top-[calc(100vh-40vh-2rem)] left-1/2 -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:left-80')
-                    .addClass('bottom-4 left-1/2 -translate-x-1/2 md:bottom-auto md:left-2 md:top-1/2 md:-translate-y-1/2');
-            } else {
-                $toggleBtn
-                    .removeClass('bottom-4 left-1/2 -translate-x-1/2 md:bottom-auto md:left-2 md:top-1/2 md:-translate-y-1/2')
-                    .addClass('top-[calc(100vh-40vh-2rem)] left-1/2 -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:left-80');
-            }
-        },
-
-        updateToggleIcon: function() {
             const $toggleIcon = $('#toggle-icon');
-            if (this.formState.isCollapsed) {
-                $toggleIcon.addClass('rotate-180 md:-rotate-90').removeClass('md:rotate-90');
-            } else {
-                $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
-            }
-        },
-
-        updatePreviewArea: function() {
             const $previewArea = $('#preview-area');
-            if (this.formState.isCollapsed) {
+            
+            if (this.isCollapsed) {
+                $formPane.addClass('translate-y-full md:translate-y-0 md:-translate-x-full');
+                $toggleBtn.attr('aria-expanded', 'false');
+                $toggleIcon.addClass('rotate-180').removeClass('md:rotate-90').addClass('md:-rotate-90');
                 $previewArea
                     .removeClass('md:left-80 bottom-[40vh]')
                     .addClass('md:left-0 bottom-0');
             } else {
+                $formPane.removeClass('translate-y-full md:translate-y-0 md:-translate-x-full');
+                $toggleBtn.attr('aria-expanded', 'true');
+                $toggleIcon.removeClass('rotate-180 md:-rotate-90').addClass('md:rotate-90');
                 $previewArea
                     .removeClass('md:left-0 bottom-0')
                     .addClass('md:left-80 bottom-[40vh]');
-            }
-        },
-
-        updateAriaStates: function() {
-            const $toggleBtn = $('#form-toggle');
-            $toggleBtn.attr('aria-expanded', !this.formState.isCollapsed);
-        },
-
-        setFormState: function(isCollapsed, reason) {
-            const oldState = this.formState.isCollapsed;
-            if (oldState !== isCollapsed) {
-                this.formState.isCollapsed = isCollapsed;
-                this.formState.stateReason = reason;
-                this.logStateChange(reason, oldState, isCollapsed);
-                this.syncFormState();
             }
         },
         
@@ -407,67 +341,22 @@ const wshly = {
             const self = this;
             
             $('#form-toggle').on('click', function() {
-                self.setFormState(!self.formState.isCollapsed, 'user');
+                self.isCollapsed = !self.isCollapsed;
+                self.applyCollapseState();
             });
-        },
-
-        populateMessages: function() {
-            const dropdown = $('.pixel-dropdown[data-name="mainMessage"]');
-            const dropdownList = dropdown.find('.pixel-dropdown-options');
-            const hiddenInput = dropdown.find('input[type="hidden"]');
-            const dropdownText = dropdown.find('.dropdown-text');
-        
-            dropdownList.empty(); // Clear existing options
-        
-            const messages = wshly.config.mainMessages;
-            for (const key in messages) {
-                const option = $(`
-                    <div class="pixel-dropdown-option" data-value="${key}" tabindex="0">
-                        <p>${messages[key]}</p>
-                    </div>
-                `);
-                dropdownList.append(option);
-            }
-        
-            // Set default value
-            const defaultMessageKey = wshly.config.defaultMessage;
-            const defaultMessageText = messages[defaultMessageKey];
-            
-            // Check if there's a value from URL params, otherwise use default
-            const params = wshly.urlParams.parse();
-            const initialMessageKey = params.mainMessage && wshly.config.mainMessages[params.mainMessage]
-                ? params.mainMessage
-                : defaultMessageKey;
-            
-            const initialMessageText = wshly.config.mainMessages[initialMessageKey];
-
-            hiddenInput.val(initialMessageKey);
-            dropdownText.text(initialMessageText);
-            
         }
     },
     
-    routing: {
-        init: function() {
-            const params = wshly.urlParams.parse();
-            const hasCardParams = params.senderName || params.recipientName || params.mainMessage || params.customMessage;
-
-            // View mode: hide form when card params exist OR f=1 is set
-            if (hasCardParams || params.f === '1') {
-                wshly.ui.setFormState(true, 'route');
-            }
-        }
-    },
-
     init: function() {
         const self = this;
         const params = this.urlParams.parse();
-
+        
         this.theme.init();
-        this.ui.populateMessages();
+        this.urlParams.populateForm();
         this.preview.init();
+        this.validation.updateCharCounter();
         this.music.init(params.m);
-
+        
         $('input, select, textarea').on('input change', function() {
             self.preview.update();
             self.validation.validateField(this);
@@ -475,77 +364,66 @@ const wshly = {
                 self.validation.updateCharCounter();
             }
         });
-
+        
         $('#copyLink').on('click', function() {
             self.sharing.copyLink();
         });
-
+        
         $('#shorten-toggle, #shorten-label').on('click', function() {
             self.sharing.toggleShorten();
         });
-
+        
         $('#shorten-toggle').on('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 self.sharing.toggleShorten();
             }
         });
-
+        
         $('#musicToggle').on('click', function() {
             self.music.toggle();
         });
-
+        
         $('#enable-sound').on('click', function() {
             self.music.enableFromOverlay();
         });
-
+        
         $('#about-btn').on('click', function() {
             self.ui.openModal('#about-modal');
         });
-
+        
         $('#close-about').on('click', function() {
             self.ui.closeModal('#about-modal');
         });
-
+        
         $('#about-modal').on('click', function(e) {
             if (e.target === this) {
                 self.ui.closeModal('#about-modal');
             }
         });
-
+        
         $('#theme-toggle').on('click', function() {
             self.theme.toggle();
         });
-
+        
         this.ui.toggleForm();
-
-        // Initialize routing - this will handle form visibility based on route
-        this.routing.init();
-
-        // Always sync initial state to ensure UI matches JavaScript state
-        this.ui.syncFormState();
-
-        // Populate form fields only if form is visible (edit mode)
-        if (!this.ui.formState.isCollapsed) {
-            this.urlParams.populateForm();
-            this.validation.updateCharCounter();
-        }
-
-        // Show error modal if error param exists (this can be additional to route-based errors)
+        this.ui.setFormVisibility(params);
+        
+        // Show error modal if error param exists
         if (params.error) {
             this.ui.openModal('#error-modal');
         }
-
+        
         $('#close-error').on('click', function() {
             self.ui.closeModal('#error-modal');
         });
-
+        
         $('#error-modal').on('click', function(e) {
             if (e.target === this) {
                 self.ui.closeModal('#error-modal');
             }
         });
-
+        
         // Keyboard: Escape closes modals, Tab traps focus
         $(document).on('keydown', function(e) {
             if (e.key === 'Escape' && self.ui.activeModal) {
@@ -555,7 +433,7 @@ const wshly = {
                 self.ui.trapFocus(e);
             }
         });
-
+        
         $('#enable-sound').on('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -565,3 +443,6 @@ const wshly = {
     }
 };
 
+$(document).ready(function() {
+    wshly.init();
+});

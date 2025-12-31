@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title ?: 'wshly - Say Your Wish'}">wshly</title>
+    <meta name="description" content="Create cute, quirky holiday cards and share them with your loved ones.">
+    <meta name="theme-color" content="#f87171">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="wshly - Say Your Wish">
+    <meta property="og:description" content="Create cute, quirky holiday cards and share them with your loved ones.">
+    <meta property="og:image" content="https://wshly.duckdns.org/social-preview.png">
+    <meta property="og:url" content="https://wshly.duckdns.org">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="wshly - Say Your Wish">
+    <meta name="twitter:description" content="Create cute, quirky holiday cards and share them with your loved ones.">
+    <meta name="twitter:image" content="https://wshly.duckdns.org/social-preview.png">
+    
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <script>
+        (function() {
+            const theme = localStorage.getItem('wshly-theme');
+            if (theme === 'snow') {
+                document.documentElement.classList.add('snow');
+            }
+        })();
+    </script>
+
+    <!-- External Resources -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script th:replace="~{fragments/config/tailwind-config :: tailwind-config}"></script>
+    <link href="https://fonts.cdnfonts.com/css/superhelio" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/aux-dotbitc" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/superhelio');
+        @import url('https://fonts.cdnfonts.com/css/aux-dotbitc');
+    </style>
+    
+    <link rel="stylesheet" href="/css/palette.css">
+    <link rel="stylesheet" href="/css/card-styles.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.2/dist/purify.min.js"></script>
+</head>
+</html>

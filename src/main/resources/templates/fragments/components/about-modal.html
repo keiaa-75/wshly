@@ -1,4 +1,4 @@
-<div id="about-modal"
+<div th:fragment="about-modal" id="about-modal" xmlns:th="http://www.thymeleaf.org"
      role="dialog" aria-modal="true" aria-labelledby="about-title"
      class="fixed inset-0 z-50 flex items-center justify-center hidden" style="background: color-mix(in srgb, var(--theme-900) 80%, transparent)">
     <div class="pixel-button !bg-white !cursor-default !max-w-xs mx-4 !p-0 overflow-hidden !block">
@@ -7,7 +7,7 @@
             <span id="about-title" class="font-superhelio text-lg" style="color: var(--theme-600)">wshly</span>
             <button id="close-about" class="w-7 h-7 flex items-center justify-center shrink-0" style="background: var(--theme-500)" onmouseover="this.style.background='var(--theme-600)'" onmouseout="this.style.background='var(--theme-500)'"
                     aria-label="Close">
-                <img src="svg/icon-close.svg" alt="" class="w-4 h-4">
+                <img src="/svg/icon-close.svg" alt="" class="w-4 h-4">
             </button>
         </div>
         <!-- Content -->
